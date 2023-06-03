@@ -1,0 +1,37 @@
+import { type Options } from "./options.js";
+
+const HOST = "https://codepen.io";
+
+const encodeOptions = (options: Options): string => {
+  let result = "";
+
+  for (const key in options)
+    if (key !== "prefill") {
+      if (result !== "") result += "&";
+
+      result += key + "=" + encodeURIComponent(options[key]);
+    }
+
+  return result;
+};
+
+export const getPostLink = (options: Options): string => {
+  const path = options.preview === "true" ? "embed/preview" : "embed";
+
+  if ("prefill" in options) return [HOST, path, "prefill"].join("/");
+
+  let slugHash = options["slug-hash"];
+
+  if (!slugHash) throw new Error("slug-hash is required");
+
+  if (options.token) slugHash += "/" + options.token;
+
+  return [
+    HOST,
+    options.user || "anon",
+    path,
+    slugHash + "?" + encodeOptions(options),
+  ]
+    .join("/")
+    .replace(/\/\//g, "//");
+};
