@@ -18,6 +18,9 @@
       "default": "./dist/index.mjs"
     }
   },
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "rollup -c rollup.config.ts --configPlugin esbuild"
   },
