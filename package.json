@@ -39,7 +39,8 @@
     "lint": "pnpm lint:prettier --write && pnpm lint:eslint --fix",
     "lint:check": "pnpm lint:prettier && pnpm lint:eslint",
     "lint:eslint": "eslint . --ext .js,.ts,.vue",
-    "lint:prettier": "prettier --check ."
+    "lint:prettier": "prettier --check .",
+    "prepublishOnly": "pnpm build"
   },
   "packageManager": "pnpm@8.6.0",
   "devDependencies": {
