@@ -51,25 +51,11 @@ Example:
 Generate a codepen iframe through options.
 
 ```ts
-interface DomOptions extends Record<string, unknown> {
-  /**
-   * @default 0
-   */
-  "theme-id"?: string | number;
-  "slug-hash"?: string;
-  user?: string;
-  name?: string;
-  href?: string;
-  /**
-   * @description one of or a set of "html" | "css" | "js" | "result"
-   * @default "result"
-   */
-  "default-tab"?: string;
+interface CodePenStyleOptions {
   /**
    * @default 300
    */
   height?: number | string;
-  animations?: "run" | "stop-after-5";
   /**
    * @default none
    */
@@ -98,15 +84,39 @@ interface DomOptions extends Record<string, unknown> {
    * @default #ffffff
    */
   "link-logo-color"?: string;
+  /**
+   * Additional class name
+   */
   class?: string;
   "custom-css-url"?: string;
-  preview?: "true" | "none";
+}
+interface CodePenDomOptions
+  extends CodePenStyleOptions,
+    Record<string, unknown> {
+  /**
+   * Id of theme
+   * @default 0
+   */
+  "theme-id"?: string | number;
+  "slug-hash"?: string;
+  user?: string;
+  /**
+   * @description one of or a set of "html" | "css" | "js" | "result"
+   * @default "result"
+   */
+  "default-tab"?: string;
+  animations?: "run" | "stop-after-5";
+  preview?: "true" | "false";
   /**
    * @default 1
    */
   zoom?: 1 | 0.5 | 0.25;
   token?: string;
   "pen-title"?: string;
+  /**
+   * @deprecated use "slug-hash" instead
+   */
+  href?: string;
   /**
    * @deprecated use "animations" instead
    */
@@ -115,8 +125,10 @@ interface DomOptions extends Record<string, unknown> {
    * @deprecated use "default-tab" instead
    */
   type?: string;
+  /** @private */
+  name?: string;
 }
-interface PrefillOptions {
+interface CodePenPrefillOptions {
   title?: string;
   description?: string;
   head?: string;
@@ -125,10 +137,11 @@ interface PrefillOptions {
   stylesheets?: string | string[];
   scripts?: string | string[];
 }
-interface APIOptions extends DomOptions {
+interface CodePenOptions
+  extends Omit<CodePenDomOptions, "name" | "type" | "href" | "safe"> {
   /** @private */
   data?: string;
-  prefill?: PrefillOptions;
+  prefill?: CodePenPrefillOptions;
   /**
    * @default "false"
    */
@@ -137,7 +150,7 @@ interface APIOptions extends DomOptions {
 
 export const renderCodePen: (
   selector: string | HTMLElement,
-  options: APIOptions
+  options: CodePenOptions
 ) => void;
 ```
 
