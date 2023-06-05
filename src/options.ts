@@ -80,6 +80,11 @@ export interface CodePenDomOptions
   "pen-title"?: string;
 
   /**
+   * @default "false"
+   */
+  open?: "true" | "false";
+
+  /**
    * @deprecated use "slug-hash" instead
    */
   href?: string;
@@ -151,7 +156,6 @@ export const getOptionsFromDom = (
   }
 
   if (result.href) result["slug-hash"] = result.href;
-
   if (result.type) result["default-tab"] = result.type;
   if (result.safe)
     result.animations = result.safe === "true" ? "run" : "stop-after-5";

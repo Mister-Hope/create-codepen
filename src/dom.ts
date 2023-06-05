@@ -126,7 +126,21 @@ const generateFormWrapper = (
   const docFragment = document.createDocumentFragment();
   let form: HTMLFormElement | null = null;
 
-  docFragment.append(getIframe(options));
+  if (options.open === "true") {
+    if ("prefill" in options) {
+      const data = getDataFromDOM(container);
+
+      if (data) options.data = data;
+
+      form = getForm(options);
+      container.appendChild(form);
+      form.submit();
+    } else {
+      window.open(getPostLink(options), "_blank");
+    }
+
+    return;
+  }
 
   if ("prefill" in options) {
     const data = getDataFromDOM(container);
@@ -137,6 +151,7 @@ const generateFormWrapper = (
     docFragment.append(form);
   }
 
+  docFragment.append(getIframe(options));
   appendFragment(container, docFragment);
 
   if (form) form.submit();
@@ -144,12 +159,15 @@ const generateFormWrapper = (
 
 let idIndex = 1;
 
-const renderCodePens = (selector = ".codepen"): void => {
+const renderCodePens = (
+  selector: string,
+  _options: CodePenDomOptions
+): void => {
   const containers = document.querySelectorAll<HTMLElement>(selector);
 
   for (let index = 0; index < containers.length; index++) {
     const container = containers[index];
-    const options = getOptionsFromDom(container);
+    const options = { ..._options, ...getOptionsFromDom(container) };
 
     if (options) {
       options.name = `code-pen-embed-${idIndex++}`;
@@ -158,10 +176,16 @@ const renderCodePens = (selector = ".codepen"): void => {
   }
 };
 
-export const loadCodePens = (selector = ".codepen"): void => {
+export const loadCodePens = (
+  selector = ".codepen",
+  options: CodePenDomOptions = {}
+): void => {
   if (document.readyState === "loading")
     document.addEventListener("DOMContentLoaded", () => {
-      renderCodePens((selector = ".codepen"));
+      renderCodePens(selector, options);
     });
-  else renderCodePens(selector);
+  else renderCodePens(selector, options);
 };
+
+export const openCodePens = (selector = ".codepen"): void =>
+  loadCodePens(selector, { open: "true" });

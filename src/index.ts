@@ -1,5 +1,5 @@
 export { renderCodePen } from "./api.js";
-export { loadCodePens } from "./dom.js";
+export { loadCodePens, openCodePens } from "./dom.js";
 export {
   type CodePenOptions,
   type CodePenDomOptions,
