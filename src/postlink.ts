@@ -1,8 +1,8 @@
-import { type DomOptions } from "./options.js";
+import { type CodePenDomOptions } from "./options.js";
 
 const HOST = "https://codepen.io";
 
-const encodeOptions = (options: DomOptions): string => {
+const encodeOptions = (options: CodePenDomOptions): string => {
   let result = "";
 
   for (const key in options)
@@ -15,7 +15,7 @@ const encodeOptions = (options: DomOptions): string => {
   return result;
 };
 
-export const getPostLink = (options: DomOptions): string => {
+export const getPostLink = (options: CodePenDomOptions): string => {
   const path = options.preview === "true" ? "embed/preview" : "embed";
 
   if ("prefill" in options) return [HOST, path, "prefill"].join("/");

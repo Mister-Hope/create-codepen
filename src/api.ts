@@ -1,12 +1,12 @@
 import { appendFragment, getForm, getIframe } from "./dom.js";
-import { type APIOptions } from "./options.js";
+import { type CodePenOptions } from "./options.js";
 
 let idIndex = 1;
 
 export const renderCodePen = (
   selector: string | HTMLElement,
-  options: APIOptions
-) => {
+  options: CodePenOptions
+): void => {
   const container =
     typeof selector === "string"
       ? document.querySelector<HTMLElement>(selector)
@@ -17,7 +17,7 @@ export const renderCodePen = (
 
   if (container) {
     const docFragment = document.createDocumentFragment();
-    let form;
+    let form: HTMLFormElement | null = null;
 
     docFragment.append(getIframe(options));
 

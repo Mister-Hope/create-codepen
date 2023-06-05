@@ -1,5 +1,57 @@
-export interface DomOptions extends Record<string, unknown> {
+export interface CodePenStyleOptions {
   /**
+   * @default 300
+   */
+  height?: number | string;
+
+  /**
+   * @default none
+   */
+  border?: "none" | "thin" | "thick";
+
+  /**
+   * @default #000000
+   */
+  "border-color"?: string;
+
+  /**
+   * @default #3d3d3e
+   */
+  "tab-bar-color"?: string;
+
+  /**
+   * @default #76daff
+   */
+  "tab-link-color"?: string;
+
+  /**
+   * @default #cccccc
+   */
+  "active-tab-color"?: string;
+
+  /**
+   * @default #000000
+   */
+  "active-link-color"?: string;
+
+  /**
+   * @default #ffffff
+   */
+  "link-logo-color"?: string;
+
+  /**
+   * Additional class name
+   */
+  class?: string;
+
+  "custom-css-url"?: string;
+}
+
+export interface CodePenDomOptions
+  extends CodePenStyleOptions,
+    Record<string, unknown> {
+  /**
+   * Id of theme
    * @default 0
    */
   "theme-id"?: string | number;
@@ -8,56 +60,29 @@ export interface DomOptions extends Record<string, unknown> {
 
   user?: string;
 
-  name?: string;
-  href?: string;
   /**
    * @description one of or a set of "html" | "css" | "js" | "result"
    * @default "result"
    */
   "default-tab"?: string;
-  /**
-   * @default 300
-   */
-  height?: number | string;
+
   animations?: "run" | "stop-after-5";
-  /**
-   * @default none
-   */
-  border?: "none" | "thin" | "thick";
-  /**
-   * @default #000000
-   */
-  "border-color"?: string;
-  /**
-   * @default #3d3d3e
-   */
-  "tab-bar-color"?: string;
-  /**
-   * @default #76daff
-   */
-  "tab-link-color"?: string;
-  /**
-   * @default #cccccc
-   */
-  "active-tab-color"?: string;
-  /**
-   * @default #000000
-   */
-  "active-link-color"?: string;
-  /**
-   * @default #ffffff
-   */
-  "link-logo-color"?: string;
-  class?: string;
-  "custom-css-url"?: string;
-  preview?: "true" | "none";
+
+  preview?: "true" | "false";
+
   /**
    * @default 1
    */
   zoom?: 1 | 0.5 | 0.25;
+
   token?: string;
+
   "pen-title"?: string;
 
+  /**
+   * @deprecated use "slug-hash" instead
+   */
+  href?: string;
   /**
    * @deprecated use "animations" instead
    */
@@ -66,22 +91,27 @@ export interface DomOptions extends Record<string, unknown> {
    * @deprecated use "default-tab" instead
    */
   type?: string;
+
+  /** @private */
+  name?: string;
 }
 
-export interface PrefillOptions {
+export interface CodePenPrefillOptions {
   title?: string;
   description?: string;
   head?: string;
   tags?: string | string[];
+  // eslint-disable-next-line @typescript-eslint/naming-convention
   html_classes?: string | string[];
   stylesheets?: string | string[];
   scripts?: string | string[];
 }
 
-export interface APIOptions extends DomOptions {
+export interface CodePenOptions
+  extends Omit<CodePenDomOptions, "name" | "type" | "href" | "safe"> {
   /** @private */
   data?: string;
-  prefill?: PrefillOptions;
+  prefill?: CodePenPrefillOptions;
 
   /**
    * @default "false"
@@ -89,7 +119,10 @@ export interface APIOptions extends DomOptions {
   editable?: "true" | "false";
 }
 
-const getUserFromDom = (result: DomOptions, container: HTMLElement): string => {
+const getUserFromDom = (
+  result: CodePenDomOptions,
+  container: HTMLElement
+): string => {
   if (typeof result.user === "string") return result.user;
 
   // try to find a link in users
@@ -106,9 +139,9 @@ const getUserFromDom = (result: DomOptions, container: HTMLElement): string => {
 
 export const getOptionsFromDom = (
   container: HTMLElement
-): DomOptions | null => {
+): CodePenDomOptions | null => {
   const { attributes } = container;
-  const result: DomOptions = {};
+  const result: CodePenDomOptions = {};
 
   for (let index = 0; index < attributes.length; index++) {
     const name = attributes[index].name;

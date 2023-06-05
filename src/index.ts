@@ -1,7 +1,8 @@
 export { renderCodePen } from "./api.js";
 export { loadCodePens } from "./dom.js";
 export {
-  type APIOptions,
-  type DomOptions,
-  type PrefillOptions,
+  type CodePenOptions,
+  type CodePenDomOptions,
+  type CodePenStyleOptions,
+  type CodePenPrefillOptions,
 } from "./options.js";

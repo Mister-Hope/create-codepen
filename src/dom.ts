@@ -1,4 +1,4 @@
-import { type DomOptions, getOptionsFromDom } from "./options.js";
+import { type CodePenDomOptions, getOptionsFromDom } from "./options.js";
 import { getPostLink } from "./postlink.js";
 import { getType } from "./types.js";
 import { createElement } from "./utils.js";
@@ -45,7 +45,7 @@ const getDataFromDOM = (container: HTMLElement): string | void => {
   }
 };
 
-export const getForm = (options: DomOptions): HTMLFormElement => {
+export const getForm = (options: CodePenDomOptions): HTMLFormElement => {
   const form = createElement("form", {
     class: "code-pen-embed-form",
     style: "display: none;",
@@ -67,7 +67,7 @@ export const getForm = (options: DomOptions): HTMLFormElement => {
   return form;
 };
 
-export const getIframe = (options: DomOptions): HTMLIFrameElement => {
+export const getIframe = (options: CodePenDomOptions): HTMLIFrameElement => {
   const {
     height = 300,
     class: className = "",
@@ -120,11 +120,11 @@ export const appendFragment = (
 };
 
 const generateFormWrapper = (
-  options: DomOptions,
+  options: CodePenDomOptions,
   container: HTMLElement
 ): void => {
   const docFragment = document.createDocumentFragment();
-  let form;
+  let form: HTMLFormElement | null = null;
 
   docFragment.append(getIframe(options));
 
