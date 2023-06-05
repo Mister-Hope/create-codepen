@@ -1,4 +1,4 @@
-export interface Options {
+export interface DomOptions extends Record<string, unknown> {
   /**
    * @default 0
    */
@@ -55,18 +55,33 @@ export interface Options {
    * @default 1
    */
   zoom?: 1 | 0.5 | 0.25;
+  token?: string;
+  "pen-title"?: string;
 
+  /**
+   * @deprecated use "animations" instead
+   */
   safe?: "true";
-
   /**
    * @deprecated use "default-tab" instead
    */
   type?: string;
-  token?: string;
-  data?: string;
-  "pen-title"?: string;
+}
 
-  [prop: string]: string | number | undefined;
+export interface PrefillOptions {
+  title?: string;
+  description?: string;
+  head?: string;
+  tags?: string | string[];
+  html_classes?: string | string[];
+  stylesheets?: string | string[];
+  scripts?: string | string[];
+}
+
+export interface APIOptions extends DomOptions {
+  /** @private */
+  data?: string;
+  prefill?: PrefillOptions;
 
   /**
    * @default "false"
@@ -74,7 +89,7 @@ export interface Options {
   editable?: "true" | "false";
 }
 
-const getUser = (result: Options, container: HTMLElement): string => {
+const getUserFromDom = (result: DomOptions, container: HTMLElement): string => {
   if (typeof result.user === "string") return result.user;
 
   // try to find a link in users
@@ -89,9 +104,11 @@ const getUser = (result: Options, container: HTMLElement): string => {
   return "anon";
 };
 
-export const getOptions = (container: HTMLElement): Options | null => {
+export const getOptionsFromDom = (
+  container: HTMLElement
+): DomOptions | null => {
   const { attributes } = container;
-  const result: Options = {};
+  const result: DomOptions = {};
 
   for (let index = 0; index < attributes.length; index++) {
     const name = attributes[index].name;
@@ -104,10 +121,10 @@ export const getOptions = (container: HTMLElement): Options | null => {
 
   if (result.type) result["default-tab"] = result.type;
   if (result.safe)
-    result.animations = "true" === result.safe ? "run" : "stop-after-5";
+    result.animations = result.safe === "true" ? "run" : "stop-after-5";
 
   if ("prefill" in result || result["slug-hash"]) {
-    result.user = getUser(result, container);
+    result.user = getUserFromDom(result, container);
 
     return result;
   }
