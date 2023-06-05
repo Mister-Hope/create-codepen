@@ -97,29 +97,16 @@ ReactDOM.render(
     <div class="prefill"></div>
 
     <button
-      class="codepen-open1"
-      data-height="265"
+      class="codepen-open"
       data-theme-id="light"
       data-default-tab="js,result"
       data-user="Mamboleoo"
       data-slug-hash="XWJPxpZ"
-      style="
-        box-sizing: border-box;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border: 2px solid;
-        margin: 1em 0;
-        padding: 1em;
-      "
       data-pen-title="Walkers - How to"
     >
-      See the Pen Walkers - How to by Louis Hoebregts (<a
-        href="https://codepen.io/Mamboleoo"
-        >@Mamboleoo</a
-      >) on <a href="https://codepen.io">CodePen</a>.
+      See the Pen Walkers - How to by Louis Hoebregts (@Mamboleoo) on CodePen.
     </button>
-    <button class="codepen-open2">Open</button>
+    <button class="codepen-api-open">Open</button>
 
     <script type="module">
       import {
@@ -201,29 +188,32 @@ ReactDOM.render(
         ".prefill"
       );
 
-      document.querySelector(".codepen-open1").addEventListener("click", () => {
+      document.querySelector(".codepen-open").addEventListener("click", () => {
         openCodePens(".codepen-open1");
       });
 
-      document.querySelector(".codepen-open2").addEventListener("click", () => {
-        renderCodePen({
-          "default-tab": "js,result",
-          prefill: {
-            title: "React Basics Demo",
-            description:
-              "Shows how to use React and React DOM to render a module with props onto the page",
-            tags: ["react", "react-docs-demo"],
-            html_classes: ["loading", "no-js"],
-            head: '<meta name="viewport" content="width=device-width, initial-scale=1">',
-            stylesheets: "https://unpkg.com/normalize.css@8.0.1/normalize.css",
-            scripts: [
-              "https://cdnjs.cloudflare.com/ajax/libs/react/16.6.3/umd/react.production.min.js",
-              "https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.6.3/umd/react-dom.production.min.js",
-            ],
-            html: `\
+      document
+        .querySelector(".codepen-api-open")
+        .addEventListener("click", () => {
+          renderCodePen({
+            "default-tab": "js,result",
+            prefill: {
+              title: "React Basics Demo",
+              description:
+                "Shows how to use React and React DOM to render a module with props onto the page",
+              tags: ["react", "react-docs-demo"],
+              html_classes: ["loading", "no-js"],
+              head: '<meta name="viewport" content="width=device-width, initial-scale=1">',
+              stylesheets:
+                "https://unpkg.com/normalize.css@8.0.1/normalize.css",
+              scripts: [
+                "https://cdnjs.cloudflare.com/ajax/libs/react/16.6.3/umd/react.production.min.js",
+                "https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.6.3/umd/react-dom.production.min.js",
+              ],
+              html: `\
 <div id="root"></div>
 `,
-            css: `\
+              css: `\
 $gray: #ccc;
 body {
   background: $gray;
@@ -241,7 +231,7 @@ body {
   }
 }
 `,
-            js: `\
+              js: `\
 class Welcome extends React.Component {
   render() {
     return <div class="module">
@@ -257,11 +247,11 @@ ReactDOM.render(
   document.getElementById('root')
 );
             `,
-            css_pre_processor: "scss",
-            js_pre_processor: "babel",
-          },
+              css_pre_processor: "scss",
+              js_pre_processor: "babel",
+            },
+          });
         });
-      });
     </script>
   </body>
 </html>
