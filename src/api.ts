@@ -1,11 +1,11 @@
 import { appendFragment, getForm, getIframe } from "./dom.js";
-import { type DomOptions } from "./options.js";
+import { type APIOptions } from "./options.js";
 
 let idIndex = 1;
 
 export const renderCodePen = (
   selector: string | HTMLElement,
-  options: DomOptions
+  options: APIOptions
 ) => {
   const container =
     typeof selector === "string"
