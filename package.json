@@ -17,7 +17,7 @@
   "author": {
     "name": "Mr.Hope",
     "email": "mister-hope@outlook.com",
-    "url": "https://mrhope.site"
+    "url": "https://mister-hope.com"
   },
   "license": "MIT",
   "main": "dist/index.cjs",
@@ -42,20 +42,20 @@
     "lint:prettier": "prettier --check .",
     "prepublishOnly": "pnpm build"
   },
-  "packageManager": "pnpm@8.6.0",
+  "packageManager": "pnpm@8.6.5",
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "5.59.8",
-    "@typescript-eslint/parser": "5.59.8",
-    "esbuild": "^0.17.19",
-    "eslint": "^8.42.0",
+    "@typescript-eslint/eslint-plugin": "5.60.1",
+    "@typescript-eslint/parser": "5.60.1",
+    "esbuild": "0.18.10",
+    "eslint": "8.43.0",
     "eslint-config-prettier": "^8.8.0",
-    "eslint-plugin-import": "^2.27.5",
-    "eslint-plugin-prettier": "^4.2.1",
-    "prettier": "^2.8.8",
-    "rollup": "^3.23.0",
-    "rollup-plugin-dts": "^5.3.0",
-    "rollup-plugin-esbuild": "^5.0.0",
-    "typescript": "^5.1.3",
-    "vite": "^4.3.9"
+    "eslint-plugin-import": "2.27.5",
+    "eslint-plugin-prettier": "4.2.1",
+    "prettier": "2.8.8",
+    "rollup": "3.25.3",
+    "rollup-plugin-dts": "5.3.0",
+    "rollup-plugin-esbuild": "5.0.0",
+    "typescript": "5.1.6",
+    "vite": "4.3.9"
   }
 }
