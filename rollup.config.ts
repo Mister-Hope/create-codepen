@@ -16,7 +16,7 @@ export default [
         sourcemap: true,
       },
     ],
-    plugins: [esbuild({ minify: true, target: "node16" })],
+    plugins: [esbuild({ minify: true, target: "node18" })],
   },
   {
     input: "./src/index.ts",

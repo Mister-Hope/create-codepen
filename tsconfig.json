@@ -1,7 +1,8 @@
 {
   "compilerOptions": {
-    "moduleResolution": "nodenext",
-    "lib": ["DOM", "EsNext"],
-    "target": "EsNext"
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "lib": ["DOM", "ESNext"],
+    "target": "ES2021"
   }
 }
