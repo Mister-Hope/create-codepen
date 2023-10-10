@@ -25,7 +25,7 @@ const getDataFromDOM = (container: HTMLElement): string | void => {
       if (ALLOWED_ATTRIBUTES.includes(key)) options[key] = prefillOptions[key];
 
     const elements = Array.from(
-      container.querySelectorAll<HTMLElement>("[data-lang]")
+      container.querySelectorAll<HTMLElement>("[data-lang]"),
     );
 
     elements.forEach((element) => {
@@ -60,8 +60,8 @@ export const getForm = (options: CodePenDomOptions): HTMLFormElement => {
         createElement("input", {
           type: "hidden",
           name: key,
-          value: options[key].toString(),
-        })
+          value: String(options[key]),
+        }),
       );
 
   return form;
@@ -93,7 +93,7 @@ export const getIframe = (options: CodePenDomOptions): HTMLIFrameElement => {
   if (options["slug-hash"])
     attribute["id"] = `code-pen-embed-${options["slug-hash"].replace(
       "/",
-      "_"
+      "_",
     )}`;
 
   return createElement("iframe", attribute);
@@ -101,7 +101,7 @@ export const getIframe = (options: CodePenDomOptions): HTMLIFrameElement => {
 
 export const appendFragment = (
   container: HTMLElement,
-  docFragment: DocumentFragment
+  docFragment: DocumentFragment,
 ): HTMLElement => {
   if (container.parentNode) {
     const div = document.createElement("div");
@@ -121,7 +121,7 @@ export const appendFragment = (
 
 const generateFormWrapper = (
   options: CodePenDomOptions,
-  container: HTMLElement
+  container: HTMLElement,
 ): void => {
   const docFragment = document.createDocumentFragment();
   let form: HTMLFormElement | null = null;
@@ -161,7 +161,7 @@ let idIndex = 1;
 
 const renderCodePens = (
   selector: string,
-  _options: CodePenDomOptions
+  _options: CodePenDomOptions,
 ): void => {
   const containers = document.querySelectorAll<HTMLElement>(selector);
 
@@ -178,7 +178,7 @@ const renderCodePens = (
 
 export const loadCodePens = (
   selector = ".codepen",
-  options: CodePenDomOptions = {}
+  options: CodePenDomOptions = {},
 ): void => {
   if (document.readyState === "loading")
     document.addEventListener("DOMContentLoaded", () => {

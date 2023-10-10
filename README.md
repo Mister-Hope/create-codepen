@@ -180,7 +180,7 @@ interface CodePenOptions
 
 export const renderCodePen: (
   options: CodePenOptions,
-  selector?: string | HTMLElement
+  selector?: string | HTMLElement,
 ) => void;
 ```
 
@@ -204,7 +204,7 @@ Example:
       user: "Mamboleoo",
       title: "Walkers - How to",
     },
-    ".api"
+    ".api",
   );
 
   // render codepen in class="prefill"
@@ -264,7 +264,7 @@ ReactDOM.render(
         js_pre_processor: "babel",
       },
     },
-    ".prefill"
+    ".prefill",
   );
 
   document.querySelector(".codepen-api-open").addEventListener("click", () => {

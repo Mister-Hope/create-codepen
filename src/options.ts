@@ -126,7 +126,7 @@ export interface CodePenOptions
 
 const getUserFromDom = (
   result: CodePenDomOptions,
-  container: HTMLElement
+  container: HTMLElement,
 ): string => {
   if (typeof result.user === "string") return result.user;
 
@@ -143,7 +143,7 @@ const getUserFromDom = (
 };
 
 export const getOptionsFromDom = (
-  container: HTMLElement
+  container: HTMLElement,
 ): CodePenDomOptions | null => {
   const { attributes } = container;
   const result: CodePenDomOptions = {};

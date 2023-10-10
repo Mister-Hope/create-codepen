@@ -5,7 +5,7 @@ let idIndex = 1;
 
 export const renderCodePen = (
   options: CodePenOptions,
-  selector?: string | HTMLElement
+  selector?: string | HTMLElement,
 ): void => {
   const container =
     typeof selector === "string"
