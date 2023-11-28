@@ -11,8 +11,8 @@ export const renderCodePen = (
     typeof selector === "string"
       ? document.querySelector<HTMLElement>(selector)
       : selector instanceof HTMLElement
-      ? selector
-      : null;
+        ? selector
+        : null;
 
   if (!options.user) options.user = "anon";
   if (!options.name)

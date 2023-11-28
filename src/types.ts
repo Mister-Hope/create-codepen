@@ -44,9 +44,9 @@ export const getType = (type = ""): string =>
   HTML_TYPES.includes(type)
     ? "html"
     : CSS_TYPES.includes(type)
-    ? "css"
-    : JS_TYPES.includes(type)
-    ? "js"
-    : CUSTOM_EDITOR_TYPES[type]
-    ? CUSTOM_EDITOR_TYPES[type]
-    : "unknown";
+      ? "css"
+      : JS_TYPES.includes(type)
+        ? "js"
+        : CUSTOM_EDITOR_TYPES[type]
+          ? CUSTOM_EDITOR_TYPES[type]
+          : "unknown";
