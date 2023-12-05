@@ -44,18 +44,18 @@
   },
   "packageManager": "pnpm@8.11.0",
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "6.13.0",
-    "@typescript-eslint/parser": "6.13.0",
+    "@typescript-eslint/eslint-plugin": "6.13.2",
+    "@typescript-eslint/parser": "6.13.2",
     "esbuild": "0.19.8",
-    "eslint": "8.54.0",
-    "eslint-config-prettier": "^9.0.0",
+    "eslint": "8.55.0",
+    "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-import": "2.29.0",
     "eslint-plugin-prettier": "5.0.1",
     "prettier": "3.1.0",
-    "rollup": "4.6.0",
+    "rollup": "4.6.1",
     "rollup-plugin-dts": "6.1.0",
     "rollup-plugin-esbuild": "6.1.0",
     "typescript": "5.3.2",
-    "vite": "5.0.2"
+    "vite": "5.0.5"
   }
 }
