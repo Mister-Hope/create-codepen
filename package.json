@@ -42,7 +42,7 @@
     "lint:prettier": "prettier --check .",
     "prepublishOnly": "pnpm build"
   },
-  "packageManager": "pnpm@8.11.0",
+  "packageManager": "pnpm@8.12.1",
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "6.13.2",
     "@typescript-eslint/parser": "6.13.2",
