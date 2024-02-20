@@ -18,7 +18,7 @@ const getDataFromDOM = (container: HTMLElement): string | void => {
     const options: Record<string, unknown> = {};
 
     const prefillOptions = <Record<string, unknown>>(
-      JSON.parse(decodeURI(container.dataset["prefill"]!) || "{}")
+      JSON.parse(decodeURI(container.dataset["prefill"]) || "{}")
     );
 
     for (const key in prefillOptions)
