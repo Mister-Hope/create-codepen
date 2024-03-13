@@ -68,9 +68,9 @@ Example:
   See the Pen Walkers - How to by Louis Hoebregts (@Mamboleoo) on CodePen.
 </p>
 <script type="module">
-  import { loadCodePens } from "https://unpkg.com/create-codepen";
+  import { openCodePens } from "https://unpkg.com/create-codepen";
 
-  loadCodePens(".code-pen-open");
+  openCodePens(".code-pen-open");
 </script>
 ```
 
