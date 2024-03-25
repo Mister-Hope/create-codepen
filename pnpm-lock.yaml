@@ -1896,8 +1896,8 @@ packages:
     engines: {node: '>= 0.4'}
     dev: true
 
-  /es-module-lexer@1.4.2:
-    resolution: {integrity: sha512-7nOqkomXZEaxUDJw21XZNtRk739QvrPSoZoRtbsEfcii00vdzZUh6zh1CQwHhrib8MdEtJfv5rJiGeb4KuV/vw==}
+  /es-module-lexer@1.5.0:
+    resolution: {integrity: sha512-pqrTKmwEIgafsYZAGw9kszYzmagcE/n4dbgwGWLEXg7J4QFJVQRBld8j3Q3GNez79jzxZshq0bcT962QHOghjw==}
     dev: true
 
   /es-object-atoms@1.0.0:
@@ -3982,7 +3982,7 @@ packages:
     dependencies:
       '@rollup/pluginutils': 5.1.0(rollup@4.13.0)
       debug: 4.3.4
-      es-module-lexer: 1.4.2
+      es-module-lexer: 1.5.0
       esbuild: 0.20.2
       get-tsconfig: 4.7.3
       rollup: 4.13.0
