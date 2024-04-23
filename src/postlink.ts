@@ -1,4 +1,4 @@
-import { type CodePenDomOptions } from "./options.js";
+import type { CodePenDomOptions } from "./options.js";
 
 const HOST = "https://codepen.io";
 
@@ -9,8 +9,9 @@ const encodeOptions = (options: CodePenDomOptions): string => {
     if (key !== "prefill" && key !== "open") {
       if (result !== "") result += "&";
 
-      result +=
-        key + "=" + encodeURIComponent(<string | number | boolean>options[key]);
+      result += `${key}=${encodeURIComponent(
+        options[key] as string | number | boolean,
+      )}`;
     }
 
   return result;

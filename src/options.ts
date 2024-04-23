@@ -132,10 +132,10 @@ const getUserFromDom = (
   if (typeof result.user === "string") return result.user;
 
   // try to find a link in users
-  for (let index = 0; index < container.children.length; index++) {
-    const link = (
-      (<HTMLAnchorElement>container.children[index]).href || ""
-    ).match(/codepen\.(io|dev)\/(\w+)\/pen\//i);
+  for (const child of Array.from(container.children)) {
+    const link = ((child as HTMLAnchorElement).href || "").match(
+      /codepen\.(io|dev)\/(\w+)\/pen\//i,
+    );
 
     if (link) return link[2];
   }
@@ -149,11 +149,8 @@ export const getOptionsFromDom = (
   const { attributes } = container;
   const result: CodePenDomOptions = {};
 
-  for (let index = 0; index < attributes.length; index++) {
-    const name = attributes[index].name;
-
-    if (name.startsWith("data-"))
-      result[name.replace("data-", "")] = attributes[index].value;
+  for (const { name, value } of Array.from(attributes)) {
+    if (name.startsWith("data-")) result[name.replace("data-", "")] = value;
   }
 
   if (result.href) result["slug-hash"] = result.href;

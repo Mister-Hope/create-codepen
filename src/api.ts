@@ -1,5 +1,5 @@
 import { appendFragment, getForm, getIframe } from "./dom.js";
-import { type CodePenOptions } from "./options.js";
+import type { CodePenOptions } from "./options.js";
 
 let idIndex = 1;
 

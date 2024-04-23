@@ -1,4 +1,5 @@
-import { type CodePenDomOptions, getOptionsFromDom } from "./options.js";
+import type { CodePenDomOptions } from "./options.js";
+import { getOptionsFromDom } from "./options.js";
 import { getPostLink } from "./postlink.js";
 import { getType } from "./types.js";
 import { createElement } from "./utils.js";
@@ -17,9 +18,9 @@ const getDataFromDOM = (container: HTMLElement): string | void => {
   if (Object.hasOwn(container.dataset, "prefill")) {
     const options: Record<string, unknown> = {};
 
-    const prefillOptions = <Record<string, unknown>>(
-      JSON.parse(decodeURI(container.dataset["prefill"]) || "{}")
-    );
+    const prefillOptions = JSON.parse(
+      decodeURI(container.dataset.prefill) || "{}",
+    ) as Record<string, unknown>;
 
     for (const key in prefillOptions)
       if (ALLOWED_ATTRIBUTES.includes(key)) options[key] = prefillOptions[key];
@@ -31,7 +32,7 @@ const getDataFromDOM = (container: HTMLElement): string | void => {
     elements.forEach((element) => {
       const { lang, langVersion, optionsAutoprefixer } = element.dataset;
 
-      if (optionsAutoprefixer) options["css_prefix"] = "autoprefixer";
+      if (optionsAutoprefixer) options.css_prefix = "autoprefixer";
 
       const type = getType(lang);
 
@@ -51,7 +52,7 @@ export const getForm = (options: CodePenDomOptions): HTMLFormElement => {
     style: "display: none;",
     method: "post",
     action: getPostLink(options),
-    target: options.name || "",
+    target: options.name ?? "",
   });
 
   for (const key in options)
@@ -85,16 +86,13 @@ export const getIframe = (options: CodePenDomOptions): HTMLIFrameElement => {
     name,
     scrolling: "no",
     style: "width: 100%; overflow: hidden; display: block;",
-    title: options["pen-title"] || name,
+    title: options["pen-title"] ?? name,
   };
 
-  if (!("prefill" in options)) attribute["loading"] = "lazy";
+  if (!("prefill" in options)) attribute.loading = "lazy";
 
   if (options["slug-hash"])
-    attribute["id"] = `code-pen-embed-${options["slug-hash"].replace(
-      "/",
-      "_",
-    )}`;
+    attribute.id = `code-pen-embed-${options["slug-hash"].replace("/", "_")}`;
 
   return createElement("iframe", attribute);
 };
@@ -163,10 +161,11 @@ const renderCodePens = (
   selector: string,
   _options: CodePenDomOptions,
 ): void => {
-  const containers = document.querySelectorAll<HTMLElement>(selector);
+  const containers = Array.from(
+    document.querySelectorAll<HTMLElement>(selector),
+  );
 
-  for (let index = 0; index < containers.length; index++) {
-    const container = containers[index];
+  for (const container of containers) {
     const options = { ..._options, ...getOptionsFromDom(container) };
 
     if (options) {
