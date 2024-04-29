@@ -22,7 +22,7 @@ export const renderCodePen = (
   let form: HTMLFormElement | null = null;
 
   if ("prefill" in options) {
-    options.data = JSON.stringify(options.prefill || "{}");
+    options.data = JSON.stringify(options.prefill ?? {});
     form = getForm(options);
     docFragment.append(form);
   }

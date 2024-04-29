@@ -57,7 +57,7 @@
   "devDependencies": {
     "@commitlint/cli": "19.3.0",
     "@commitlint/config-conventional": "19.2.2",
-    "commit-and-tag-version": "12.4.0",
+    "commit-and-tag-version": "12.4.1",
     "commitizen": "4.3.0",
     "cz-git": "1.9.1",
     "esbuild": "0.20.2",
@@ -69,14 +69,14 @@
     "nano-staged": "0.8.0",
     "prettier": "3.2.5",
     "rimraf": "5.0.5",
-    "rollup": "4.16.4",
+    "rollup": "4.17.1",
     "rollup-plugin-dts": "6.1.0",
     "rollup-plugin-esbuild": "6.1.1",
     "typescript": "5.4.5",
     "typescript-eslint": "7.7.1",
     "vite": "5.2.10"
   },
-  "packageManager": "pnpm@9.0.5",
+  "packageManager": "pnpm@9.0.6",
   "engines": {
     "node": ">=18"
   }

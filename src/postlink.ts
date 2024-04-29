@@ -30,7 +30,7 @@ export const getPostLink = (options: CodePenDomOptions): string => {
 
   return [
     HOST,
-    options.user || "anon",
+    options.user ?? "anon",
     path,
     slugHash + "?" + encodeOptions(options),
   ]
