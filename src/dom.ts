@@ -19,7 +19,8 @@ const getDataFromDOM = (container: HTMLElement): string | void => {
     const options: Record<string, unknown> = {};
 
     const prefillOptions = JSON.parse(
-      decodeURI(container.dataset.prefill) || "{}",
+      // eslint-disable-next-line  @typescript-eslint/prefer-nullish-coalescing
+      decodeURI(container.dataset.prefill || "{}"),
     ) as Record<string, unknown>;
 
     for (const key in prefillOptions)
