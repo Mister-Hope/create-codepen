@@ -6,32 +6,32 @@ export interface CodePenStyleOptions {
   height?: number | string;
 
   /**
-   * @default none
+   * @default "none"
    */
   border?: "none" | "thin" | "thick";
 
   /**
-   * @default #000000
+   * @default "#000000"
    */
   "border-color"?: string;
 
   /**
-   * @default #3d3d3e
+   * @default "#3d3d3e"
    */
   "tab-bar-color"?: string;
 
   /**
-   * @default #76daff
+   * @default "#76daff"
    */
   "tab-link-color"?: string;
 
   /**
-   * @default #cccccc
+   * @default "#cccccc"
    */
   "active-tab-color"?: string;
 
   /**
-   * @default #000000
+   * @default "#000000"
    */
   "active-link-color"?: string;
 
@@ -45,6 +45,9 @@ export interface CodePenStyleOptions {
    */
   class?: string;
 
+  /**
+   * Custom css link
+   */
   "custom-css-url"?: string;
 }
 
@@ -53,6 +56,7 @@ export interface CodePenDomOptions
     Record<string, unknown> {
   /**
    * Id of theme
+   *
    * @default 0
    */
   "theme-id"?: string | number;
@@ -63,6 +67,7 @@ export interface CodePenDomOptions
 
   /**
    * @description one of or a set of "html" | "css" | "js" | "result"
+   *
    * @default "result"
    */
   "default-tab"?: string;
@@ -84,22 +89,6 @@ export interface CodePenDomOptions
    * @default "false"
    */
   open?: "true" | "false";
-
-  /**
-   * @deprecated use "slug-hash" instead
-   */
-  href?: string;
-  /**
-   * @deprecated use "animations" instead
-   */
-  safe?: "true";
-  /**
-   * @deprecated use "default-tab" instead
-   */
-  type?: string;
-
-  /** @private */
-  name?: string;
 }
 
 export interface CodePenPrefillOptions {
@@ -113,10 +102,7 @@ export interface CodePenPrefillOptions {
   scripts?: string | string[];
 }
 
-export interface CodePenOptions
-  extends Omit<CodePenDomOptions, "name" | "type" | "href" | "safe"> {
-  /** @private */
-  data?: string;
+export interface CodePenOptions extends CodePenDomOptions {
   prefill?: CodePenPrefillOptions;
 
   /**
@@ -152,11 +138,6 @@ export const getOptionsFromDom = (
   for (const { name, value } of Array.from(attributes)) {
     if (name.startsWith("data-")) result[name.replace("data-", "")] = value;
   }
-
-  if (result.href) result["slug-hash"] = result.href;
-  if (result.type) result["default-tab"] = result.type;
-  if (result.safe)
-    result.animations = result.safe === "true" ? "run" : "stop-after-5";
 
   if ("prefill" in result || result["slug-hash"]) {
     result.user = getUserFromDom(result, container);

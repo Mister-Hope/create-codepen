@@ -1,8 +1,15 @@
-import type { CodePenDomOptions } from "./options.js";
+import type { CodePenDomOptions, CodePenOptions } from "./options.js";
 import { getOptionsFromDom } from "./options.js";
 import { getPostLink } from "./postlink.js";
 import { getType } from "./types.js";
 import { createElement } from "./utils.js";
+
+/** @private */
+interface CodePenConfig extends CodePenOptions {
+  data?: string;
+
+  name?: string;
+}
 
 const ALLOWED_ATTRIBUTES = [
   "title",
@@ -47,7 +54,7 @@ const getDataFromDOM = (container: HTMLElement): string | void => {
   }
 };
 
-export const getForm = (options: CodePenDomOptions): HTMLFormElement => {
+export const getForm = (options: CodePenConfig): HTMLFormElement => {
   const form = createElement("form", {
     class: "code-pen-embed-form",
     style: "display: none;",
@@ -69,7 +76,7 @@ export const getForm = (options: CodePenDomOptions): HTMLFormElement => {
   return form;
 };
 
-export const getIframe = (options: CodePenDomOptions): HTMLIFrameElement => {
+export const getIframe = (options: CodePenConfig): HTMLIFrameElement => {
   const {
     height = 300,
     class: className = "",
@@ -167,7 +174,10 @@ const renderCodePens = (
   );
 
   for (const container of containers) {
-    const options = { ..._options, ...getOptionsFromDom(container) };
+    const options: CodePenConfig = {
+      ..._options,
+      ...getOptionsFromDom(container),
+    };
 
     if (options) {
       options.name = `code-pen-embed-${idIndex++}`;

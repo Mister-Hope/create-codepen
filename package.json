@@ -24,13 +24,9 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.cjs",
-      "default": "./dist/index.mjs"
+      "default": "./dist/index.js"
     }
   },
-  "main": "dist/index.cjs",
-  "module": "dist/index.mjs",
   "files": [
     "dist"
   ],

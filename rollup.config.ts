@@ -6,12 +6,7 @@ export default [
     input: "./src/index.ts",
     output: [
       {
-        file: "./dist/index.cjs",
-        format: "cjs",
-        sourcemap: true,
-      },
-      {
-        file: "./dist/index.mjs",
+        file: "./dist/index.js",
         format: "esm",
         sourcemap: true,
       },
@@ -22,19 +17,8 @@ export default [
     input: "./src/index.ts",
     output: [
       {
-        file: "./dist/index.d.mts",
-        format: "esm",
-        sourcemap: true,
-      },
-      {
-        file: "./dist/index.d.cts",
-        format: "esm",
-        sourcemap: true,
-      },
-      {
         file: "./dist/index.d.ts",
         format: "esm",
-        sourcemap: true,
       },
     ],
     plugins: [dts()],
