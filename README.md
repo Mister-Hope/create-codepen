@@ -2,15 +2,18 @@
 
 A library creating codepen with api.
 
+<!-- markdownlint-disable MD033 -->
+
 ## loadCodePens
 
-Load codepen through dom, this should be the same as the codepen embed script, while we are not calling `loadCodePen(".codepen")` directly.
+Load codepen through DOM, this should be the same as the codepen embed script, while we are not calling `loadCodePen(".codepen")` directly.
 
 ```ts
 export const loadCodePens: (selector = ".codepen") => void;
 ```
 
-Example:
+<details>
+<summary>Example</summary>
 
 ```html
 <p
@@ -46,6 +49,8 @@ Example:
 </script>
 ```
 
+</details>
+
 ## openCodePens
 
 Open codepen in new window
@@ -54,7 +59,8 @@ Open codepen in new window
 export const openCodePens: (selector?: string) => void;
 ```
 
-Example:
+<details>
+<summary>Example</summary>
 
 ```html
 <p
@@ -73,6 +79,8 @@ Example:
   openCodePens(".code-pen-open");
 </script>
 ```
+
+</details>
 
 ## renderCodePen
 
@@ -184,7 +192,8 @@ export const renderCodePen: (
 ) => void;
 ```
 
-Example:
+<details>
+<summary>Example</summary>
 
 ```html
 <div class="api"></div>
@@ -326,3 +335,5 @@ ReactDOM.render(
   });
 </script>
 ```
+
+</details>
