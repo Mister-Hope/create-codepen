@@ -1,6 +1,6 @@
 {
   "name": "create-codepen",
-  "version": "1.0.1",
+  "version": "2.0.0",
   "description": "Create CodePen with API",
   "type": "module",
   "keywords": [
