@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## 2.0.0 (2024-05-21)
+
+### ⚠️Breaking Changes
+
+- Remove cjs
+- Remove deprecated attribute support
+
+### Features
+
+- improve types
+
 ## 1.0.1 (2023-12-31)
 
 ### Features
