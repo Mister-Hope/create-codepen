@@ -96,7 +96,7 @@ export interface CodePenPrefillOptions {
   description?: string;
   head?: string;
   tags?: string | string[];
-  // eslint-disable-next-line @typescript-eslint/naming-convention
+
   html_classes?: string | string[];
   stylesheets?: string | string[];
   scripts?: string | string[];
@@ -119,8 +119,8 @@ const getUserFromDom = (
 
   // try to find a link in users
   for (const child of Array.from(container.children)) {
-    const link = ((child as HTMLAnchorElement).href || "").match(
-      /codepen\.(io|dev)\/(\w+)\/pen\//i,
+    const link = /codepen\.(io|dev)\/(\w+)\/pen\//i.exec(
+      (child as HTMLAnchorElement).href || "",
     );
 
     if (link) return link[2];

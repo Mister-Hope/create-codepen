@@ -5,7 +5,7 @@ export const createElement = <K extends keyof HTMLElementTagNameMap>(
   const element = document.createElement<K>(tagName);
 
   for (const attribute in attributes)
-    Object.prototype.hasOwnProperty.call(attributes, attribute) &&
+    if (Object.prototype.hasOwnProperty.call(attributes, attribute))
       element.setAttribute(attribute, attributes[attribute].toString());
 
   return element;

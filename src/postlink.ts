@@ -32,7 +32,7 @@ export const getPostLink = (options: CodePenDomOptions): string => {
     HOST,
     options.user ?? "anon",
     path,
-    slugHash + "?" + encodeOptions(options),
+    `${slugHash}?${encodeOptions(options)}`,
   ]
     .join("/")
     .replace(/\/\//g, "//");
