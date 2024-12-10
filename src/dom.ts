@@ -177,12 +177,10 @@ const renderCodePens = (
     const options: CodePenConfig = {
       ..._options,
       ...getOptionsFromDom(container),
+      name: `code-pen-embed-${idIndex++}`,
     };
 
-    if (options) {
-      options.name = `code-pen-embed-${idIndex++}`;
-      generateFormWrapper(options, container);
-    }
+    generateFormWrapper(options, container);
   }
 };
 
