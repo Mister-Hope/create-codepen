@@ -2,18 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
-## 2.0.0 (2024-05-21)
-
-### ⚠️Breaking Changes
-
-- Remove cjs
-- Remove deprecated attribute support
+## [2.0.0](https://github.com/Mister-Hope/create-codepen/compare/v1.0.1...v2.0.0) (2024-05-21)
 
 ### Features
 
-- improve types
+- remove cjs and deprecated options ([d7756b8](https://github.com/Mister-Hope/create-codepen/commit/d7756b8211602738ae186ed417df9af265599875))
 
-## 1.0.1 (2023-12-31)
+### [1.0.1](https://github.com/Mister-Hope/create-codepen/compare/v1.0.0...v1.0.1) (2023-10-10)
+
+## [1.0.0](https://github.com/Mister-Hope/create-codepen/compare/22bb46d3de6b4da77efe224da03853b4345450eb...v1.0.0) (2023-10-10)
 
 ### Features
 
