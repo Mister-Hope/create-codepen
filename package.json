@@ -64,7 +64,7 @@
     "rollup-plugin-esbuild": "6.2.1",
     "standard-changelog": "6.0.0",
     "typescript": "5.8.3",
-    "vite": "6.2.3"
+    "vite": "6.2.5"
   },
   "packageManager": "pnpm@10.7.0",
   "engines": {
