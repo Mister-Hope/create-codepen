@@ -11,7 +11,12 @@ export default [
         sourcemap: true,
       },
     ],
-    plugins: [esbuild({ minify: true, target: "node18" })],
+    plugins: [
+      esbuild({
+        minify: true,
+        target: ["es2020", "edge88", "firefox78", "chrome87", "safari14"],
+      }),
+    ],
   },
   {
     input: "./src/index.ts",
