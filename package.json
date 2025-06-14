@@ -53,7 +53,7 @@
   "devDependencies": {
     "@commitlint/cli": "19.8.1",
     "@commitlint/config-conventional": "19.8.1",
-    "eslint": "9.28.0",
+    "eslint": "9.29.0",
     "eslint-config-mister-hope": "0.9.5",
     "husky": "9.1.7",
     "nano-staged": "0.8.0",
