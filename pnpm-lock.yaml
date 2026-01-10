@@ -48,8 +48,8 @@ importers:
         specifier: 5.9.3
         version: 5.9.3
       vite:
-        specifier: 7.3.0
-        version: 7.3.0(@types/node@24.10.0)(jiti@2.6.1)
+        specifier: 7.3.1
+        version: 7.3.1(@types/node@24.10.0)(jiti@2.6.1)
 
 packages:
 
@@ -1569,8 +1569,8 @@ packages:
   validate-npm-package-license@3.0.4:
     resolution: {integrity: sha512-DpKm2Ui/xN7/HQKCtpZxoRWBhZ9Z0kqtygG8XCgNQ8ZlDnxuQmWhj566j8fN4Cu3/JmbhsDo7fcAJq4s9h27Ew==}
 
-  vite@7.3.0:
-    resolution: {integrity: sha512-dZwN5L1VlUBewiP6H9s2+B3e3Jg96D0vzN+Ry73sOefebhYr9f94wwkMNN/9ouoU8pV1BqA1d1zGk8928cx0rg==}
+  vite@7.3.1:
+    resolution: {integrity: sha512-w+N7Hifpc3gRjZ63vYBXA56dvvRlNWRczTdmCBBa+CotUzAPf5b7YMdMR/8CQoeYE5LX3W4wj6RYTgonm1b9DA==}
     engines: {node: ^20.19.0 || >=22.12.0}
     hasBin: true
     peerDependencies:
@@ -3101,7 +3101,7 @@ snapshots:
       spdx-correct: 3.2.0
       spdx-expression-parse: 3.0.1
 
-  vite@7.3.0(@types/node@24.10.0)(jiti@2.6.1):
+  vite@7.3.1(@types/node@24.10.0)(jiti@2.6.1):
     dependencies:
       esbuild: 0.27.2
       fdir: 6.5.0(picomatch@4.0.3)
