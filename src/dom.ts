@@ -35,9 +35,9 @@ const getDataFromDOM = (container: HTMLElement): string | void => {
     const elements = [...container.querySelectorAll<HTMLElement>("[data-lang]")];
 
     elements.forEach((element) => {
-      const { lang, langVersion, optionsAutoprefixer } = element.dataset;
+      const { lang, langVersion } = element.dataset;
 
-      if (optionsAutoprefixer) options.css_prefix = "autoprefixer";
+      if ("optionsAutoprefixer" in element.dataset) options.css_prefix = "autoprefixer";
 
       const type = getType(lang);
 
@@ -177,5 +177,6 @@ export const loadCodePens = (selector = ".codepen", options: CodePenDomOptions =
   else renderCodePens(selector, options);
 };
 
-export const openCodePens = (selector = ".codepen"): void =>
+export const openCodePens = (selector = ".codepen"): void => {
   loadCodePens(selector, { open: "true" });
+};

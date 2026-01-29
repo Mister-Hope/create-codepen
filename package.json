@@ -36,8 +36,8 @@
     "clean": "rimraf dist",
     "commit": "pnpm git-cz",
     "dev": "tsdown --watch",
-    "lint": "oxlint . --fix && oxfmt",
-    "lint:check": "oxlint . && oxfmt --check",
+    "lint": "oxlint --type-aware . --fix && oxfmt",
+    "lint:check": "oxlint --type-aware . && oxfmt --check",
     "prepare": "husky",
     "prepublishOnly": "pnpm build"
   },

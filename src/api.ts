@@ -11,8 +11,8 @@ export const renderCodePen = (options: CodePenOptions, selector?: string | HTMLE
         ? selector
         : null;
 
-  if (!options.user) options.user = "anon";
-  if (!options.name) options.name = container ? `code-pen-api-${idIndex++}` : "_blank";
+  options.user ??= "anon";
+  options.name ??= container ? `code-pen-api-${idIndex++}` : "_blank";
 
   const docFragment = document.createDocumentFragment();
   let form: HTMLFormElement | null = null;
