@@ -29,8 +29,8 @@
       <span
         >See the Pen
         <a href="https://codepen.io/Mamboleoo/pen/XWJPxpZ"> Walkers - How to</a>
-        by Louis Hoebregts (<a href="https://codepen.io/Mamboleoo">@Mamboleoo</a
-        >) on <a href="https://codepen.io">CodePen</a>.</span
+        by Louis Hoebregts (<a href="https://codepen.io/Mamboleoo">@Mamboleoo</a>) on
+        <a href="https://codepen.io">CodePen</a>.</span
       >
     </p>
 
@@ -109,11 +109,7 @@ ReactDOM.render(
     <button class="codepen-api-open">Open</button>
 
     <script type="module">
-      import {
-        loadCodePens,
-        openCodePens,
-        renderCodePen,
-      } from "./src/index.ts";
+      import { loadCodePens, openCodePens, renderCodePen } from "./src/index.ts";
 
       loadCodePens();
 
@@ -192,28 +188,25 @@ ReactDOM.render(
         openCodePens(".codepen-open1");
       });
 
-      document
-        .querySelector(".codepen-api-open")
-        .addEventListener("click", () => {
-          renderCodePen({
-            "default-tab": "js,result",
-            prefill: {
-              title: "React Basics Demo",
-              description:
-                "Shows how to use React and React DOM to render a module with props onto the page",
-              tags: ["react", "react-docs-demo"],
-              html_classes: ["loading", "no-js"],
-              head: '<meta name="viewport" content="width=device-width, initial-scale=1">',
-              stylesheets:
-                "https://unpkg.com/normalize.css@8.0.1/normalize.css",
-              scripts: [
-                "https://cdnjs.cloudflare.com/ajax/libs/react/16.6.3/umd/react.production.min.js",
-                "https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.6.3/umd/react-dom.production.min.js",
-              ],
-              html: `\
+      document.querySelector(".codepen-api-open").addEventListener("click", () => {
+        renderCodePen({
+          "default-tab": "js,result",
+          prefill: {
+            title: "React Basics Demo",
+            description:
+              "Shows how to use React and React DOM to render a module with props onto the page",
+            tags: ["react", "react-docs-demo"],
+            html_classes: ["loading", "no-js"],
+            head: '<meta name="viewport" content="width=device-width, initial-scale=1">',
+            stylesheets: "https://unpkg.com/normalize.css@8.0.1/normalize.css",
+            scripts: [
+              "https://cdnjs.cloudflare.com/ajax/libs/react/16.6.3/umd/react.production.min.js",
+              "https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.6.3/umd/react-dom.production.min.js",
+            ],
+            html: `\
 <div id="root"></div>
 `,
-              css: `\
+            css: `\
 $gray: #ccc;
 body {
   background: $gray;
@@ -231,7 +224,7 @@ body {
   }
 }
 `,
-              js: `\
+            js: `\
 class Welcome extends React.Component {
   render() {
     return <div class="module">
@@ -247,11 +240,11 @@ ReactDOM.render(
   document.getElementById('root')
 );
             `,
-              css_pre_processor: "scss",
-              js_pre_processor: "babel",
-            },
-          });
+            css_pre_processor: "scss",
+            js_pre_processor: "babel",
+          },
         });
+      });
     </script>
   </body>
 </html>

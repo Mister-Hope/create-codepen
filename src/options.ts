@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/naming-convention */
+/* oxlint-disable typescript/naming-convention */
 export interface CodePenStyleOptions {
   /**
    * @default 300
@@ -51,9 +51,7 @@ export interface CodePenStyleOptions {
   "custom-css-url"?: string;
 }
 
-export interface CodePenDomOptions
-  extends CodePenStyleOptions,
-    Record<string, unknown> {
+export interface CodePenDomOptions extends CodePenStyleOptions, Record<string, unknown> {
   /**
    * Id of theme
    *
@@ -111,17 +109,12 @@ export interface CodePenOptions extends CodePenDomOptions {
   editable?: "true" | "false";
 }
 
-const getUserFromDom = (
-  result: CodePenDomOptions,
-  container: HTMLElement,
-): string => {
+const getUserFromDom = (result: CodePenDomOptions, container: HTMLElement): string => {
   if (typeof result.user === "string") return result.user;
 
   // try to find a link in users
-  for (const child of Array.from(container.children)) {
-    const link = /codepen\.(io|dev)\/(\w+)\/pen\//i.exec(
-      (child as HTMLAnchorElement).href || "",
-    );
+  for (const child of container.children) {
+    const link = /codepen\.(io|dev)\/(\w+)\/pen\//i.exec((child as HTMLAnchorElement).href || "");
 
     if (link) return link[2];
   }
@@ -129,13 +122,11 @@ const getUserFromDom = (
   return "anon";
 };
 
-export const getOptionsFromDom = (
-  container: HTMLElement,
-): CodePenDomOptions | null => {
+export const getOptionsFromDom = (container: HTMLElement): CodePenDomOptions | null => {
   const { attributes } = container;
   const result: CodePenDomOptions = {};
 
-  for (const { name, value } of Array.from(attributes)) {
+  for (const { name, value } of attributes) {
     if (name.startsWith("data-")) result[name.replace("data-", "")] = value;
   }
 

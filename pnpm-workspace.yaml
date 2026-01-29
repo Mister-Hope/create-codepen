@@ -1,3 +1,5 @@
-onlyBuiltDependencies:
-  - esbuild
-  - unrs-resolver
+packageExtensions:
+  "@codecov/rollup-plugin":
+    peerDependenciesMeta:
+      rollup:
+        optional: true

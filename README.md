@@ -50,9 +50,7 @@ interface CodePenStyleOptions {
   "custom-css-url"?: string;
 }
 
-interface CodePenDomOptions
-  extends CodePenStyleOptions,
-    Record<string, unknown> {
+interface CodePenDomOptions extends CodePenStyleOptions, Record<string, unknown> {
   /**
    * Id of theme
    *
@@ -134,8 +132,8 @@ export const loadCodePens: (selector = ".codepen") => void;
   <span
     >See the Pen
     <a href="https://codepen.io/Mamboleoo/pen/XWJPxpZ"> Walkers - How to</a>
-    by Louis Hoebregts (<a href="https://codepen.io/Mamboleoo">@Mamboleoo</a>)
-    on <a href="https://codepen.io">CodePen</a>.</span
+    by Louis Hoebregts (<a href="https://codepen.io/Mamboleoo">@Mamboleoo</a>) on
+    <a href="https://codepen.io">CodePen</a>.</span
   >
 </p>
 <script type="module">
@@ -185,10 +183,7 @@ Generate a codepen iframe through options.
 If a valid selector is provided, the codepen will be rendered inside selector element. Otherwise it will be rendered in new window.
 
 ```ts
-export const renderCodePen: (
-  options: CodePenOptions,
-  selector?: string | HTMLElement,
-) => void;
+export const renderCodePen: (options: CodePenOptions, selector?: string | HTMLElement) => void;
 ```
 
 <details>

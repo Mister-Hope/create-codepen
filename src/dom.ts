@@ -4,14 +4,13 @@ import { getPostLink } from "./postlink.js";
 import { getType } from "./types.js";
 import { createElement } from "./utils.js";
 
-/** @private */
 interface CodePenConfig extends CodePenOptions {
   data?: string;
 
   name?: string;
 }
 
-const ALLOWED_ATTRIBUTES = [
+const ALLOWED_ATTRIBUTES = new Set([
   "title",
   "description",
   "tags",
@@ -19,23 +18,21 @@ const ALLOWED_ATTRIBUTES = [
   "head",
   "stylesheets",
   "scripts",
-];
+]);
 
 const getDataFromDOM = (container: HTMLElement): string | void => {
   if (Object.hasOwn(container.dataset, "prefill")) {
     const options: Record<string, unknown> = {};
 
     const prefillOptions = JSON.parse(
-      // eslint-disable-next-line  @typescript-eslint/prefer-nullish-coalescing
+      // oxlint-disable-next-line  typescript/prefer-nullish-coalescing
       decodeURI(container.dataset.prefill || "{}"),
     ) as Record<string, unknown>;
 
     for (const key in prefillOptions)
-      if (ALLOWED_ATTRIBUTES.includes(key)) options[key] = prefillOptions[key];
+      if (ALLOWED_ATTRIBUTES.has(key)) options[key] = prefillOptions[key];
 
-    const elements = Array.from(
-      container.querySelectorAll<HTMLElement>("[data-lang]"),
-    );
+    const elements = [...container.querySelectorAll<HTMLElement>("[data-lang]")];
 
     elements.forEach((element) => {
       const { lang, langVersion, optionsAutoprefixer } = element.dataset;
@@ -44,10 +41,10 @@ const getDataFromDOM = (container: HTMLElement): string | void => {
 
       const type = getType(lang);
 
-      options[type] = element.innerText;
+      options[type] = element.textContent;
 
-      if (lang !== type) options[type + "_pre_processor"] = lang;
-      if (langVersion) options[type + "_version"] = langVersion;
+      if (lang !== type) options[`${type}_pre_processor`] = lang;
+      if (langVersion) options[`${type}_version`] = langVersion;
     });
 
     return JSON.stringify(options);
@@ -77,11 +74,7 @@ export const getForm = (options: CodePenConfig): HTMLFormElement => {
 };
 
 export const getIframe = (options: CodePenConfig): HTMLIFrameElement => {
-  const {
-    height = 300,
-    class: className = "",
-    name = "CodePen Embed",
-  } = options;
+  const { height = 300, class: className = "", name = "CodePen Embed" } = options;
   const attribute: Record<string, string | number> = {
     class: `cp_embed_iframe ${className}`,
     src: getPostLink(options),
@@ -125,10 +118,7 @@ export const appendFragment = (
   return container;
 };
 
-const generateFormWrapper = (
-  options: CodePenDomOptions,
-  container: HTMLElement,
-): void => {
+const generateFormWrapper = (options: CodePenDomOptions, container: HTMLElement): void => {
   const docFragment = document.createDocumentFragment();
   let form: HTMLFormElement | null = null;
 
@@ -139,7 +129,7 @@ const generateFormWrapper = (
       if (data) options.data = data;
 
       form = getForm(options);
-      container.appendChild(form);
+      container.append(form);
       form.submit();
     } else {
       window.open(getPostLink(options), "_blank");
@@ -165,13 +155,8 @@ const generateFormWrapper = (
 
 let idIndex = 1;
 
-const renderCodePens = (
-  selector: string,
-  _options: CodePenDomOptions,
-): void => {
-  const containers = Array.from(
-    document.querySelectorAll<HTMLElement>(selector),
-  );
+const renderCodePens = (selector: string, _options: CodePenDomOptions): void => {
+  const containers = [...document.querySelectorAll<HTMLElement>(selector)];
 
   for (const container of containers) {
     const options: CodePenConfig = {
@@ -184,10 +169,7 @@ const renderCodePens = (
   }
 };
 
-export const loadCodePens = (
-  selector = ".codepen",
-  options: CodePenDomOptions = {},
-): void => {
+export const loadCodePens = (selector = ".codepen", options: CodePenDomOptions = {}): void => {
   if (document.readyState === "loading")
     document.addEventListener("DOMContentLoaded", () => {
       renderCodePens(selector, options);

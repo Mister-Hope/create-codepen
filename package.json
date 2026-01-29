@@ -2,7 +2,6 @@
   "name": "create-codepen",
   "version": "2.0.0",
   "description": "Create CodePen with API",
-  "type": "module",
   "keywords": [
     "codepen"
   ],
@@ -10,64 +9,64 @@
   "bugs": {
     "url": "https://github.com/Mister-Hope/create-codepen/issues"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Mister-Hope/create-codepen.git",
-    "directory": "packages/theme"
-  },
   "license": "MIT",
   "author": {
     "name": "Mr.Hope",
     "email": "mister-hope@outlook.com",
     "url": "https://mister-hope.com"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Mister-Hope/create-codepen.git",
+    "directory": "packages/theme"
+  },
+  "files": [
+    "dist"
+  ],
+  "type": "module",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
       "default": "./dist/index.js"
     }
   },
-  "files": [
-    "dist"
-  ],
   "scripts": {
-    "build": "rollup -c rollup.config.ts --configPlugin esbuild",
+    "build": "tsdown",
     "changelog": " conventional-changelog -p angular",
     "clean": "rimraf dist",
     "commit": "pnpm git-cz",
-    "dev": "vite dev",
-    "lint": "eslint . --fix && prettier --check --write .",
-    "lint:check": "eslint . && prettier --check .",
+    "dev": "tsdown --watch",
+    "lint": "oxlint . --fix && oxfmt",
+    "lint:check": "oxlint . && oxfmt --check",
     "prepare": "husky",
     "prepublishOnly": "pnpm build"
   },
+  "devDependencies": {
+    "@codecov/rollup-plugin": "1.9.1",
+    "@commitlint/cli": "20.3.1",
+    "@commitlint/config-conventional": "20.3.1",
+    "@types/node": "25.1.0",
+    "husky": "9.1.7",
+    "nano-staged": "0.9.0",
+    "oxfmt": "0.27.0",
+    "oxlint": "1.42.0",
+    "oxlint-tsgolint": "0.11.3",
+    "rimraf": "6.1.2",
+    "standard-changelog": "7.0.1",
+    "tsdown": "0.20.1",
+    "typescript": "5.9.3"
+  },
   "nano-staged": {
-    "**/*": "prettier --write --ignore-unknown",
-    "*.{js,ts}": "eslint --fix"
+    "**/*": "oxfmt --no-error-on-unmatched-pattern",
+    "*.{js,ts}": "oxlint --fix"
   },
   "commitlint": {
     "extends": [
       "@commitlint/config-conventional"
     ]
   },
-  "devDependencies": {
-    "@commitlint/cli": "20.3.1",
-    "@commitlint/config-conventional": "20.3.1",
-    "eslint": "9.39.2",
-    "eslint-config-mister-hope": "0.9.6",
-    "husky": "9.1.7",
-    "nano-staged": "0.9.0",
-    "prettier": "3.8.1",
-    "rimraf": "6.1.2",
-    "rollup": "4.56.0",
-    "rollup-plugin-dts": "6.3.0",
-    "rollup-plugin-esbuild": "6.2.1",
-    "standard-changelog": "7.0.1",
-    "typescript": "5.9.3",
-    "vite": "7.3.1"
-  },
-  "packageManager": "pnpm@10.23.0",
   "engines": {
     "node": ">=18"
-  }
+  },
+  "packageManager": "pnpm@10.28.2"
 }

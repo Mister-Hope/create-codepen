@@ -3,7 +3,7 @@
     "strict": true,
     "module": "ESNext",
     "moduleResolution": "Bundler",
-    "lib": ["DOM", "ESNext"],
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
     "target": "ES2022"
   }
 }

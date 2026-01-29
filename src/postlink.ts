@@ -9,9 +9,7 @@ const encodeOptions = (options: CodePenDomOptions): string => {
     if (key !== "prefill" && key !== "open") {
       if (result !== "") result += "&";
 
-      result += `${key}=${encodeURIComponent(
-        options[key] as string | number | boolean,
-      )}`;
+      result += `${key}=${encodeURIComponent(options[key] as string | number | boolean)}`;
     }
 
   return result;
@@ -26,14 +24,9 @@ export const getPostLink = (options: CodePenDomOptions): string => {
 
   if (!slugHash) throw new Error("slug-hash is required");
 
-  if (options.token) slugHash += "/" + options.token;
+  if (options.token) slugHash += `/${options.token}`;
 
-  return [
-    HOST,
-    options.user ?? "anon",
-    path,
-    `${slugHash}?${encodeOptions(options)}`,
-  ]
+  return [HOST, options.user ?? "anon", path, `${slugHash}?${encodeOptions(options)}`]
     .join("/")
-    .replace(/\/\//g, "//");
+    .replaceAll("//", "//");
 };

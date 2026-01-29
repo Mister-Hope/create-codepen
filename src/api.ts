@@ -3,10 +3,7 @@ import type { CodePenOptions } from "./options.js";
 
 let idIndex = 1;
 
-export const renderCodePen = (
-  options: CodePenOptions,
-  selector?: string | HTMLElement,
-): void => {
+export const renderCodePen = (options: CodePenOptions, selector?: string | HTMLElement): void => {
   const container =
     typeof selector === "string"
       ? document.querySelector<HTMLElement>(selector)
@@ -15,8 +12,7 @@ export const renderCodePen = (
         : null;
 
   if (!options.user) options.user = "anon";
-  if (!options.name)
-    options.name = container ? `code-pen-api-${idIndex++}` : "_blank";
+  if (!options.name) options.name = container ? `code-pen-api-${idIndex++}` : "_blank";
 
   const docFragment = document.createDocumentFragment();
   let form: HTMLFormElement | null = null;
@@ -31,7 +27,7 @@ export const renderCodePen = (
     docFragment.append(getIframe(options));
     appendFragment(container, docFragment);
   } else {
-    document.body.appendChild(docFragment);
+    document.body.append(docFragment);
   }
 
   if (form) form.submit();

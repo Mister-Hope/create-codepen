@@ -1,4 +1,4 @@
-const HTML_TYPES = [
+const HTML_TYPES = new Set([
   "html",
   "xml",
   "haml",
@@ -6,9 +6,9 @@ const HTML_TYPES = [
   "slim",
   "pug",
   "application/x-slim",
-];
+]);
 
-const CSS_TYPES = [
+const CSS_TYPES = new Set([
   "css",
   "less",
   "scss",
@@ -20,9 +20,9 @@ const CSS_TYPES = [
   "text/x-scss",
   "text/x-less",
   "text/x-styl",
-];
+]);
 
-const JS_TYPES = [
+const JS_TYPES = new Set([
   "js",
   "javascript",
   "coffeescript",
@@ -33,7 +33,7 @@ const JS_TYPES = [
   "text/x-coffeescript",
   "text/x-livescript",
   "text/typescript",
-];
+]);
 
 const CUSTOM_EDITOR_TYPES: Record<string, string> = {
   vue: "js",
@@ -41,12 +41,10 @@ const CUSTOM_EDITOR_TYPES: Record<string, string> = {
 };
 
 export const getType = (type = ""): string =>
-  HTML_TYPES.includes(type)
+  HTML_TYPES.has(type)
     ? "html"
-    : CSS_TYPES.includes(type)
+    : CSS_TYPES.has(type)
       ? "css"
-      : JS_TYPES.includes(type)
+      : JS_TYPES.has(type)
         ? "js"
-        : CUSTOM_EDITOR_TYPES[type]
-          ? CUSTOM_EDITOR_TYPES[type]
-          : "unknown";
+        : CUSTOM_EDITOR_TYPES[type] || "unknown";
