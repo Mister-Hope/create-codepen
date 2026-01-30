@@ -1,4 +1,3 @@
-/* oxlint-disable typescript/naming-convention */
 export interface CodePenStyleOptions {
   /**
    * @default 300

@@ -36,8 +36,8 @@
     "clean": "rimraf dist",
     "commit": "pnpm git-cz",
     "dev": "tsdown --watch",
-    "lint": "oxlint --type-aware . --fix && oxfmt",
-    "lint:check": "oxlint --type-aware . && oxfmt --check",
+    "lint": "oxlint --fix --type-aware --type-check --report-unused-disable-directives --deny-warnings && oxfmt",
+    "lint:check": "oxlint --type-aware --type-check --report-unused-disable-directives --deny-warnings && oxfmt --check",
     "prepare": "husky",
     "prepublishOnly": "pnpm build"
   },
@@ -58,7 +58,7 @@
   },
   "nano-staged": {
     "**/*": "oxfmt --no-error-on-unmatched-pattern",
-    "*.{js,ts}": "oxlint --fix"
+    "*.{js,ts}": "oxlint --fix --type-aware --type-check --deny-warnings --report-unused-disable-directives"
   },
   "commitlint": {
     "extends": [
