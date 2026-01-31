@@ -31,11 +31,11 @@
     }
   },
   "scripts": {
-    "build": "tsdown",
+    "build": "tsdown --config-loader unrun",
     "changelog": " conventional-changelog -p angular",
     "clean": "rimraf dist",
     "commit": "pnpm git-cz",
-    "dev": "tsdown --watch",
+    "dev": "tsdown --config-loader unrun -w",
     "lint": "oxlint --fix --type-aware --type-check --report-unused-disable-directives --deny-warnings && oxfmt",
     "lint:check": "oxlint --type-aware --type-check --report-unused-disable-directives --deny-warnings && oxfmt --check",
     "prepare": "husky",

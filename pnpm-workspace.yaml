@@ -1,3 +1,8 @@
+overrides:
+  # FIXME: avoid outdated dependencies introducing vulnerable undici
+  "@codecov/bundler-plugin-core>@actions/github": npm:@actions/github@8
+  "@codecov/bundler-plugin-core>@actions/http-client": npm:@actions/github@3
+
 packageExtensions:
   "@codecov/rollup-plugin":
     peerDependenciesMeta:
