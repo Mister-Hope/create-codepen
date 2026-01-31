@@ -1,7 +1,7 @@
 {
   "$schema": "./node_modules/oxlint/configuration_schema.json",
   "extends": ["./.oxlintrc.base.json"],
-  "ignorePatterns": ["dist/"],
+  "ignorePatterns": ["coverage/", "dist/"],
   "plugins": ["typescript", "oxc", "import", "jsdoc", "promise", "unicorn"],
   "rules": {}
 }

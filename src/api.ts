@@ -5,11 +5,12 @@ let idIndex = 1;
 
 export const renderCodePen = (options: CodePenOptions, selector?: string | HTMLElement): void => {
   const container =
-    typeof selector === "string"
-      ? document.querySelector<HTMLElement>(selector)
-      : selector instanceof HTMLElement
-        ? selector
-        : null;
+    typeof selector === "string" ? document.querySelector<HTMLElement>(selector) : selector;
+
+  if (!(container instanceof HTMLElement) && selector != null) {
+    // oxlint-disable-next-line typescript/no-base-to-string
+    throw new TypeError(`Invalid selector: ${selector?.toString()}`);
+  }
 
   options.user ??= "anon";
   options.name ??= container ? `code-pen-api-${idIndex++}` : "_blank";

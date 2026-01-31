@@ -35,18 +35,21 @@
     "changelog": " conventional-changelog -p angular",
     "clean": "rimraf dist",
     "commit": "pnpm git-cz",
-    "dev": "tsdown --config-loader unrun -w",
+    "dev": "vite",
     "lint": "oxlint --fix --type-aware --type-check --report-unused-disable-directives --deny-warnings && oxfmt",
     "lint:check": "oxlint --type-aware --type-check --report-unused-disable-directives --deny-warnings && oxfmt --check",
     "prepare": "husky",
-    "prepublishOnly": "pnpm build"
+    "prepublishOnly": "pnpm build",
+    "test": "vitest run --coverage"
   },
   "devDependencies": {
     "@codecov/rollup-plugin": "1.9.1",
     "@commitlint/cli": "20.4.0",
     "@commitlint/config-conventional": "20.4.0",
     "@types/node": "25.1.0",
+    "@vitest/coverage-istanbul": "4.0.18",
     "husky": "9.1.7",
+    "jsdom": "27.4.0",
     "nano-staged": "0.9.0",
     "oxfmt": "0.27.0",
     "oxlint": "1.42.0",
@@ -54,7 +57,9 @@
     "rimraf": "6.1.2",
     "standard-changelog": "7.0.1",
     "tsdown": "0.20.1",
-    "typescript": "5.9.3"
+    "typescript": "5.9.3",
+    "vite": "7.3.1",
+    "vitest": "4.0.18"
   },
   "nano-staged": {
     "**/*": "oxfmt --no-error-on-unmatched-pattern",
