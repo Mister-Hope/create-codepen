@@ -94,6 +94,13 @@ export interface CodePenPrefillOptions {
   head?: string;
   tags?: string | string[];
 
+  html?: string;
+  css?: string;
+  js?: string;
+  html_pre_processor?: string;
+  css_pre_processor?: string;
+  js_pre_processor?: string;
+
   html_classes?: string | string[];
   stylesheets?: string | string[];
   scripts?: string | string[];
