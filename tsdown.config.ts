@@ -7,9 +7,12 @@ export default defineConfig({
   dts: true,
   plugins: [
     codecovRollupPlugin({
-      enableBundleAnalysis: Boolean(process.env.CODECOV_TOKEN),
-      bundleName: "index",
-      uploadToken: process.env.CODECOV_TOKEN,
+      enableBundleAnalysis: Boolean(process.env.BUNDLE_ANALYSIS),
+      bundleName: "create-codepen",
+      oidc: {
+        useGitHubOIDC: true,
+      },
+      telemetry: false,
     }),
   ],
   target: ["es2020", "edge88", "firefox78", "chrome87", "safari14"],

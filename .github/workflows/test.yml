@@ -4,6 +4,10 @@ on:
   push:
   pull_request:
 
+permissions:
+  contents: read
+  id-token: write
+
 jobs:
   test:
     strategy:
@@ -34,6 +38,8 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Build test
+        env:
+          BUNDLE_ANALYSIS: true
         run: pnpm build
 
       - name: Linter test
