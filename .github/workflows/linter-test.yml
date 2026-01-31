@@ -1,4 +1,4 @@
-name: Test
+name: Build and Linter Test
 
 on:
   push:
@@ -9,21 +9,12 @@ permissions:
   id-token: write
 
 jobs:
-  test:
-    strategy:
-      fail-fast: false
-      matrix:
-        node:
-          - 20
-          - 22
-          - 24
-    name: Test build
+  linter-and-unit:
+    name: Linter test
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v6
-        with:
-          submodules: true
 
       - name: Install pnpm
         uses: pnpm/action-setup@v4
@@ -31,16 +22,17 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v6
         with:
-          node-version: ${{ matrix.node }}
+          node-version: 24
           cache: pnpm
 
-      - name: Install deps
+      - name: Install Deps
         run: pnpm install --frozen-lockfile
 
-      - name: Build test
+      - name: Build project
         env:
           BUNDLE_ANALYSIS: true
-        run: pnpm build
+        run: pnpm run build
 
       - name: Linter test
-        run: pnpm lint
+        run: |
+          pnpm run lint:check

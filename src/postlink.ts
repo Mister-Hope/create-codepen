@@ -5,12 +5,13 @@ const HOST = "https://codepen.io";
 const encodeOptions = (options: CodePenDomOptions): string => {
   let result = "";
 
-  for (const key in options)
+  for (const key in options) {
     if (key !== "prefill" && key !== "open") {
       if (result !== "") result += "&";
 
       result += `${key}=${encodeURIComponent(options[key] as string | number | boolean)}`;
     }
+  }
 
   return result;
 };

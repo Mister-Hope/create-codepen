@@ -24,10 +24,10 @@ const getDataFromDOM = (container: HTMLElement): string | void => {
   if (Object.hasOwn(container.dataset, "prefill")) {
     const options: Record<string, unknown> = {};
 
-    const prefillOptions = JSON.parse(
-      // oxlint-disable-next-line  typescript/prefer-nullish-coalescing
-      decodeURI(container.dataset.prefill || "{}"),
-    ) as Record<string, unknown>;
+    const prefillOptions = JSON.parse(decodeURI(container.dataset.prefill ?? "{}")) as Record<
+      string,
+      unknown
+    >;
 
     for (const key in prefillOptions)
       if (ALLOWED_ATTRIBUTES.has(key)) options[key] = prefillOptions[key];
@@ -60,8 +60,8 @@ export const getForm = (options: CodePenConfig): HTMLFormElement => {
     target: options.name ?? "",
   });
 
-  for (const key in options)
-    if (key !== "prefill")
+  for (const key in options) {
+    if (key !== "prefill") {
       form.append(
         createElement("input", {
           type: "hidden",
@@ -69,6 +69,8 @@ export const getForm = (options: CodePenConfig): HTMLFormElement => {
           value: String(options[key]),
         }),
       );
+    }
+  }
 
   return form;
 };
@@ -162,6 +164,7 @@ const renderCodePens = (selector: string, _options: CodePenDomOptions): void => 
     const options: CodePenConfig = {
       ..._options,
       ...getOptionsFromDom(container),
+      // oxlint-disable-next-line no-plusplus
       name: `code-pen-embed-${idIndex++}`,
     };
 
@@ -170,11 +173,13 @@ const renderCodePens = (selector: string, _options: CodePenDomOptions): void => 
 };
 
 export const loadCodePens = (selector = ".codepen", options: CodePenDomOptions = {}): void => {
-  if (document.readyState === "loading")
+  if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", () => {
       renderCodePens(selector, options);
     });
-  else renderCodePens(selector, options);
+  } else {
+    renderCodePens(selector, options);
+  }
 };
 
 export const openCodePens = (selector = ".codepen"): void => {
