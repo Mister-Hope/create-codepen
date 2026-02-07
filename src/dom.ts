@@ -24,10 +24,10 @@ const getDataFromDOM = (container: HTMLElement): string | void => {
   if (Object.hasOwn(container.dataset, "prefill")) {
     const options: Record<string, unknown> = {};
 
-    const prefillOptions = JSON.parse(
-      // oxlint-disable-next-line  typescript/prefer-nullish-coalescing
-      decodeURI(container.dataset.prefill || "{}"),
-    ) as Record<string, unknown>;
+    const prefillOptions = JSON.parse(decodeURI(container.dataset.prefill ?? "{}")) as Record<
+      string,
+      unknown
+    >;
 
     for (const key in prefillOptions)
       if (ALLOWED_ATTRIBUTES.has(key)) options[key] = prefillOptions[key];
