@@ -24,6 +24,9 @@ importers:
       '@commitlint/config-conventional':
         specifier: 20.4.3
         version: 20.4.3
+      '@mr-hope/tsconfig':
+        specifier: 0.0.2
+        version: 0.0.2(typescript@5.9.3)
       '@types/node':
         specifier: 25.3.5
         version: 25.3.5
@@ -353,6 +356,12 @@ packages:
 
   '@jridgewell/trace-mapping@0.3.31':
     resolution: {integrity: sha512-zzNR+SdQSDJzc8joaeP8QQoCQr8NuYx2dIIytl1QeBEZHJ9uW6hebsrYgbz8hJwUQao3TWCMtmfV8Nu1twOLAw==}
+
+  '@mr-hope/tsconfig@0.0.2':
+    resolution: {integrity: sha512-qhZ91RvrWtpQN7Jo+012Lmk0LzkMs2XmSIaOht2cKuHheRzp3rjek0fdlyyRLvMunNqt960y7iFwfHWLybilTA==}
+    engines: {node: '>=20.0.0'}
+    peerDependencies:
+      typescript: '>=5.4.0'
 
   '@napi-rs/wasm-runtime@1.1.1':
     resolution: {integrity: sha512-p64ah1M1ld8xjWv3qbvFwHiFVWrq1yFvV4f7w+mzaqiR4IlSgkqhcRdHwsGgomwzBH51sRY4NEowLxnaBjcW/A==}
@@ -2384,6 +2393,10 @@ snapshots:
     dependencies:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.5
+
+  '@mr-hope/tsconfig@0.0.2(typescript@5.9.3)':
+    dependencies:
+      typescript: 5.9.3
 
   '@napi-rs/wasm-runtime@1.1.1':
     dependencies:

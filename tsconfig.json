@@ -1,9 +1,7 @@
 {
+  "extends": "@mr-hope/tsconfig/web.json",
   "compilerOptions": {
-    "strict": true,
-    "module": "ESNext",
-    "moduleResolution": "Bundler",
-    "lib": ["DOM", "DOM.Iterable", "ESNext"],
-    "target": "ES2022"
-  }
+    "noUncheckedIndexedAccess": false
+  },
+  "include": ["**/*.ts"]
 }
