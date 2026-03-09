@@ -13,6 +13,7 @@ export const renderCodePen = (options: CodePenOptions, selector?: string | HTMLE
   }
 
   options.user ??= "anon";
+  // oxlint-disable-next-line no-plusplus
   options.name ??= container ? `code-pen-api-${idIndex++}` : "_blank";
 
   const docFragment = document.createDocumentFragment();

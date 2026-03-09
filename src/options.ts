@@ -134,9 +134,8 @@ export const getOptionsFromDom = (container: HTMLElement): CodePenDomOptions | n
   const { attributes } = container;
   const result: CodePenDomOptions = {};
 
-  for (const { name, value } of attributes) {
+  for (const { name, value } of attributes)
     if (name.startsWith("data-")) result[name.replace("data-", "")] = value;
-  }
 
   if ("prefill" in result || result["slug-hash"]) {
     result.user = getUserFromDom(result, container);
