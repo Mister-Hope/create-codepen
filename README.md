@@ -1,5 +1,7 @@
 # create-codepen
 
+[![codecov](https://codecov.io/gh/Mister-Hope/create-codepen/graph/badge.svg?token=lq7BRiN8CO)](https://codecov.io/gh/Mister-Hope/create-codepen)
+
 A library creating codepen with api.
 
 <!-- markdownlint-disable MD033 -->
