@@ -25,4 +25,12 @@ describe(createElement, () => {
     });
     expect(div.dataset.id).toBe("123");
   });
+
+  it("should not set inherited attributes", () => {
+    const proto = { color: "red" };
+    const attrs = Object.create(proto) as Record<string, string>;
+    const div = createElement("div", attrs);
+
+    expect(div.getAttribute("color")).toBeNull();
+  });
 });

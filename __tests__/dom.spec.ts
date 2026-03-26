@@ -188,7 +188,9 @@ describe("dom helpers", () => {
   describe("getDataFromDOM function", () => {
     it("should extract data from element with data-prefill", () => {
       const container = document.createElement("div");
-      container.dataset.prefill = encodeURI(JSON.stringify({ title: "My Pen" }));
+      container.dataset.prefill = encodeURI(
+        JSON.stringify({ title: "My Pen", notAllowed: "value" }),
+      );
 
       const htmlElement = document.createElement("div");
       htmlElement.dataset.lang = "html";
@@ -229,6 +231,75 @@ describe("dom helpers", () => {
       expect(data.css_prefix).toBe("autoprefixer");
 
       wrapper?.remove();
+    });
+
+    it("should handle empty data-prefill attribute", () => {
+      const container = document.createElement("div");
+      container.className = "test-empty-prefill";
+      container.setAttribute("data-prefill", "");
+      document.body.append(container);
+
+      const submitSpy = vi
+        .spyOn(HTMLFormElement.prototype, "submit")
+        .mockImplementation(() => {});
+
+      loadCodePens(".test-empty-prefill");
+
+      const wrapper = document.querySelector(".code-pen-embed-wrapper");
+      expect(wrapper).toBeTruthy();
+      const form = wrapper!.querySelector("form");
+      expect(form).toBeTruthy();
+      // data input exists with value "{}" because empty prefill parses to empty object
+      const dataInput = form!.querySelector('input[name="data"]') as HTMLInputElement | null;
+      expect(dataInput).not.toBeNull();
+      expect(dataInput!.value).toBe("{}");
+
+      submitSpy.mockRestore();
+      container.remove();
+      wrapper?.remove();
+    });
+
+    it("should return undefined when container has no data-prefill attribute", () => {
+      const container = document.createElement("div");
+      container.className = "test-no-data-prefill";
+      container.dataset.slugHash = "abc";
+      document.body.append(container);
+
+      const submitSpy = vi
+        .spyOn(HTMLFormElement.prototype, "submit")
+        .mockImplementation(() => {});
+
+      loadCodePens(".test-no-data-prefill", { prefill: {} });
+
+      const wrapper = document.querySelector(".code-pen-embed-wrapper");
+      expect(wrapper).toBeTruthy();
+      const form = wrapper!.querySelector("form");
+      expect(form).toBeTruthy();
+      // data input should not exist because getDataFromDOM returned undefined
+      const dataInput = form!.querySelector('input[name="data"]');
+      expect(dataInput).toBeNull();
+
+      submitSpy.mockRestore();
+      container.remove();
+      wrapper?.remove();
+    });
+
+    it("should return undefined for open=true when container has no data-prefill attribute", () => {
+      const container = document.createElement("div");
+      container.className = "test-open-no-data-prefill";
+      container.dataset.slugHash = "abc";
+      document.body.append(container);
+
+      const submitSpy = vi
+        .spyOn(HTMLFormElement.prototype, "submit")
+        .mockImplementation(() => {});
+
+      loadCodePens(".test-open-no-data-prefill", { open: "true", prefill: {} });
+
+      expect(submitSpy).toHaveBeenCalled();
+
+      submitSpy.mockRestore();
+      container.remove();
     });
   });
 });
