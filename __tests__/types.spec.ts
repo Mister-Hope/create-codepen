@@ -32,5 +32,6 @@ describe(getType, () => {
   it("should return 'unknown' for unknown types", () => {
     expect(getType("unknown")).toBe("unknown");
     expect(getType("")).toBe("unknown");
+    expect(getType()).toBe("unknown");
   });
 });
