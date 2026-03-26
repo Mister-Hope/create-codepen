@@ -1,4 +1,5 @@
 import { describe, expect, it } from "vitest";
+
 import { getPostLink } from "../src/postlink.js";
 
 describe(getPostLink, () => {

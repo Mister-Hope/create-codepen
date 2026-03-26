@@ -1,4 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
+
 import { appendFragment, getForm, getIframe, loadCodePens, openCodePens } from "../src/dom.js";
 import type { CodePenOptions } from "../src/options.js";
 
@@ -20,7 +21,7 @@ describe("dom helpers", () => {
       const form = getForm(options as unknown as Parameters<typeof getForm>[0]);
 
       expect(form.tagName).toBe("FORM");
-      expect(form.classList.contains("code-pen-embed-form")).toBeTruthy();
+      expect(form.classList.contains("code-pen-embed-form")).toBe(true);
       expect(form.method).toBe("post");
       expect(form.style.display).toBe("none");
     });
@@ -89,7 +90,7 @@ describe("dom helpers", () => {
       fragment.append(child);
 
       appendFragment(container, fragment);
-      expect(container.contains(child)).toBeTruthy();
+      expect(container.contains(child)).toBe(true);
     });
 
     it("should replace container with wrapper if it has parent", () => {
@@ -100,8 +101,8 @@ describe("dom helpers", () => {
 
       const result = appendFragment(container, fragment);
       expect(result.className).toBe("code-pen-embed-wrapper");
-      expect(parent.contains(result)).toBeTruthy();
-      expect(parent.contains(container)).toBeFalsy();
+      expect(parent.contains(result)).toBe(true);
+      expect(parent.contains(container)).toBe(false);
     });
   });
 
