@@ -94,6 +94,13 @@ export interface CodePenPrefillOptions {
   head?: string;
   tags?: string | string[];
 
+  html?: string;
+  css?: string;
+  js?: string;
+  html_pre_processor?: string;
+  css_pre_processor?: string;
+  js_pre_processor?: string;
+
   html_classes?: string | string[];
   stylesheets?: string | string[];
   scripts?: string | string[];
@@ -113,7 +120,9 @@ const getUserFromDom = (result: CodePenDomOptions, container: HTMLElement): stri
 
   // try to find a link in users
   for (const child of container.children) {
-    const link = /codepen\.(io|dev)\/(\w+)\/pen\//i.exec((child as HTMLAnchorElement).href || "");
+    const link = /codepen\.(io|dev)\/([\w-]+)\/pen\//i.exec(
+      (child as HTMLAnchorElement).href || "",
+    );
 
     if (link) return link[2];
   }
@@ -125,9 +134,8 @@ export const getOptionsFromDom = (container: HTMLElement): CodePenDomOptions | n
   const { attributes } = container;
   const result: CodePenDomOptions = {};
 
-  for (const { name, value } of attributes) {
+  for (const { name, value } of attributes)
     if (name.startsWith("data-")) result[name.replace("data-", "")] = value;
-  }
 
   if ("prefill" in result || result["slug-hash"]) {
     result.user = getUserFromDom(result, container);

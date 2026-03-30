@@ -4,9 +4,10 @@ export const createElement = <Key extends keyof HTMLElementTagNameMap>(
 ): HTMLElementTagNameMap[Key] => {
   const element = document.createElement<Key>(tagName);
 
-  for (const attribute in attributes)
+  for (const attribute in attributes) {
     if (Object.hasOwn(attributes, attribute))
       element.setAttribute(attribute, attributes[attribute].toString());
+  }
 
   return element;
 };
