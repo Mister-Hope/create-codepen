@@ -75,7 +75,7 @@ describe("renderCodePen function", () => {
     }).toThrow("Invalid selector: #non-existent");
 
     expect(() => {
-      // oxlint-disable-next-line typescript/no-explicit-any, typescript/no-unsafe-argument
+      // oxlint-disable-next-line typescript/no-unsafe-argument
       renderCodePen({ "slug-hash": "xyz" }, 123 as any);
     }).toThrow("Invalid selector: 123");
   });
