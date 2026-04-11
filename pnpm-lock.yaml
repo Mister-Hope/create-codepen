@@ -6,7 +6,7 @@ settings:
 
 overrides:
   '@codecov/bundler-plugin-core@1>@actions/core': npm:@actions/core@2
-  '@codecov/bundler-plugin-core@1>@actions/github': npm:@actions/github@8
+  '@codecov/bundler-plugin-core@1>@actions/github': npm:@actions/github@9
 
 packageExtensionsChecksum: sha256-CEUcWf6oJiuvpDhK+INoqkFynjN68zO2tDn3fugux9E=
 
@@ -80,8 +80,8 @@ packages:
   '@actions/exec@2.0.0':
     resolution: {integrity: sha512-k8ngrX2voJ/RIN6r9xB82NVqKpnMRtxDoiO+g3olkIUpQNqjArXrCQceduQZCQj3P3xm32pChRLqRrtXTlqhIw==}
 
-  '@actions/github@8.0.1':
-    resolution: {integrity: sha512-cue7mS+kx1/2Dnc/094pitRUm+0uPXVXYVaqOdZwD15BsXATWYHW3idJDYOlyBc5gJlzAQ/w5YLU4LR8D7hjVg==}
+  '@actions/github@9.1.0':
+    resolution: {integrity: sha512-u0hDGQeCS+7VNoLA8hYG65RLdPLMaPGfka0sZ0up7P0AiShqfX6xcuXNteGkQ7X7Tod7AMNwHd4p7DS63i8zzA==}
 
   '@actions/http-client@3.0.2':
     resolution: {integrity: sha512-JP38FYYpyqvUsz+Igqlc/JG6YO9PaKuvqjM3iGvaLqFnJ7TFmcLyy2IDrY0bI0qCQug8E9K+elv5ZNfw62ZJzA==}
@@ -1857,7 +1857,7 @@ snapshots:
     dependencies:
       '@actions/io': 2.0.0
 
-  '@actions/github@8.0.1':
+  '@actions/github@9.1.0':
     dependencies:
       '@actions/http-client': 3.0.2
       '@octokit/core': 7.0.6
@@ -2021,7 +2021,7 @@ snapshots:
   '@codecov/bundler-plugin-core@1.9.1':
     dependencies:
       '@actions/core': 2.0.3
-      '@actions/github': 8.0.1
+      '@actions/github': 9.1.0
       chalk: 4.1.2
       semver: 7.7.4
       unplugin: 1.16.1
