@@ -29,7 +29,7 @@ describe("renderCodePen function", () => {
   });
 
   it("should open in new window if selector is not provided", () => {
-    const submitSpy = vi.fn();
+    const submitSpy = vi.fn<() => void>();
     HTMLFormElement.prototype.submit = submitSpy;
 
     renderCodePen({ prefill: { title: "Test" } });
