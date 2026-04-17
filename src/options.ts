@@ -1,52 +1,32 @@
 export interface CodePenStyleOptions {
-  /**
-   * @default 300
-   */
+  /** @default 300 */
   height?: number | string;
 
-  /**
-   * @default "none"
-   */
+  /** @default "none" */
   border?: "none" | "thin" | "thick";
 
-  /**
-   * @default "#000000"
-   */
+  /** @default "#000000" */
   "border-color"?: string;
 
-  /**
-   * @default "#3d3d3e"
-   */
+  /** @default "#3d3d3e" */
   "tab-bar-color"?: string;
 
-  /**
-   * @default "#76daff"
-   */
+  /** @default "#76daff" */
   "tab-link-color"?: string;
 
-  /**
-   * @default "#cccccc"
-   */
+  /** @default "#cccccc" */
   "active-tab-color"?: string;
 
-  /**
-   * @default "#000000"
-   */
+  /** @default "#000000" */
   "active-link-color"?: string;
 
-  /**
-   * @default #ffffff
-   */
+  /** @default #ffffff */
   "link-logo-color"?: string;
 
-  /**
-   * Additional class name
-   */
+  /** Additional class name */
   class?: string;
 
-  /**
-   * Custom css link
-   */
+  /** Custom css link */
   "custom-css-url"?: string;
 }
 
@@ -63,7 +43,7 @@ export interface CodePenDomOptions extends CodePenStyleOptions, Record<string, u
   user?: string;
 
   /**
-   * @description one of or a set of "html" | "css" | "js" | "result"
+   * One of or a set of "html" | "css" | "js" | "result"
    *
    * @default "result"
    */
@@ -73,18 +53,14 @@ export interface CodePenDomOptions extends CodePenStyleOptions, Record<string, u
 
   preview?: "true" | "false";
 
-  /**
-   * @default 1
-   */
+  /** @default 1 */
   zoom?: 1 | 0.5 | 0.25;
 
   token?: string;
 
   "pen-title"?: string;
 
-  /**
-   * @default "false"
-   */
+  /** @default "false" */
   open?: "true" | "false";
 }
 
@@ -109,9 +85,7 @@ export interface CodePenPrefillOptions {
 export interface CodePenOptions extends CodePenDomOptions {
   prefill?: CodePenPrefillOptions;
 
-  /**
-   * @default "false"
-   */
+  /** @default "false" */
   editable?: "true" | "false";
 }
 
