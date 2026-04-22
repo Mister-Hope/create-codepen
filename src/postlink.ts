@@ -27,7 +27,5 @@ export const getPostLink = (options: CodePenDomOptions): string => {
 
   if (options.token) slugHash += `/${options.token}`;
 
-  return [HOST, options.user ?? "anon", path, `${slugHash}?${encodeOptions(options)}`]
-    .join("/")
-    .replaceAll("//", "//");
+  return [HOST, options.user ?? "anon", path, `${slugHash}?${encodeOptions(options)}`].join("/");
 };
