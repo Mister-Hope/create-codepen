@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   upgrade: true,
   timeout: 360000,
   target: (name) => {
