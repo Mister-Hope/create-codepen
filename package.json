@@ -51,7 +51,7 @@
     "husky": "9.1.7",
     "jsdom": "29.1.0",
     "nano-staged": "1.0.2",
-    "oxc-config-hope": "0.3.1",
+    "oxc-config-hope": "0.3.2",
     "oxfmt": "0.47.0",
     "oxlint": "1.62.0",
     "oxlint-tsgolint": "0.22.1",
