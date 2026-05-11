@@ -11,7 +11,7 @@ describe(getOptionsFromDom, () => {
     div.dataset.user = "test-user";
 
     const options = getOptionsFromDom(div);
-    expect(options).toEqual({
+    expect(options).toStrictEqual({
       "slug-hash": "abc",
       "theme-id": "123",
       user: "test-user",

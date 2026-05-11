@@ -40,7 +40,7 @@ describe("renderCodePen function", () => {
     expect(form?.method).toBe("post");
     expect(form?.action).toContain("https://codepen.io/embed/prefill");
 
-    expect(submitSpy).toHaveBeenCalled();
+    expect(submitSpy).toHaveBeenCalledWith();
   });
 
   it("should handle prefill options", () => {
@@ -53,7 +53,7 @@ describe("renderCodePen function", () => {
 
     const dataInput = form.querySelector<HTMLInputElement>('input[name="data"]')!;
 
-    expect(dataInput.value).toEqual('{"title":"Test"}');
+    expect(dataInput.value).toBe('{"title":"Test"}');
   });
 
   it("should handle prefill: undefined", () => {
@@ -66,7 +66,7 @@ describe("renderCodePen function", () => {
 
     const dataInput = form.querySelector<HTMLInputElement>('input[name="data"]')!;
 
-    expect(dataInput.value).toEqual("{}");
+    expect(dataInput.value).toBe("{}");
   });
 
   it("should throw error if selector is invalid", () => {

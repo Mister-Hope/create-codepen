@@ -15,7 +15,7 @@ export default defineConfig({
       telemetry: false,
     }),
   ],
-  target: ["es2020", "edge88", "firefox78", "chrome87", "safari14"],
+  target: "baseline-widely-available",
   platform: "browser",
   fixedExtension: false,
   minify: true,
