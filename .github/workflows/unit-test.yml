@@ -16,15 +16,15 @@ jobs:
       fail-fast: false
       matrix:
         node-version:
-          - 20
           - 22
           - 24
+          - 26
     steps:
       - name: Checkout
         uses: actions/checkout@v6
 
       - name: Install pnpm
-        uses: pnpm/action-setup@v5
+        uses: pnpm/action-setup@v6
 
       - name: Setup Node.js
         uses: actions/setup-node@v6
@@ -33,7 +33,7 @@ jobs:
           cache: pnpm
 
       - name: Install Deps
-        run: pnpm install --frozen-lockfile
+        run: pnpm ci
 
       - name: Build project
         run: pnpm run build

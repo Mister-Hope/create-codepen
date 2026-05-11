@@ -94,7 +94,7 @@ const getUserFromDom = (result: CodePenDomOptions, container: HTMLElement): stri
 
   // try to find a link in users
   for (const child of container.children) {
-    const link = /codepen\.(io|dev)\/([\w-]+)\/pen\//i.exec(
+    const link = /codepen\.(io|dev)\/([\w-]+)\/pen\//iu.exec(
       (child as HTMLAnchorElement).href || "",
     );
 
