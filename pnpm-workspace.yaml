@@ -1,7 +1,10 @@
+configDependencies:
+  pacquet: "^0.2.9"
+
 enableGlobalVirtualStore: true
 
-overrides:
-  rolldown: ^1.0.0
+minimumReleaseAgeExclude:
+  - oxc-config-hope
 
 packageExtensions:
   "@codecov/rollup-plugin":
