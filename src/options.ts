@@ -94,11 +94,12 @@ const getUserFromDom = (result: CodePenDomOptions, container: HTMLElement): stri
 
   // try to find a link in users
   for (const child of container.children) {
-    const link = /codepen\.(io|dev)\/([\w-]+)\/pen\//iu.exec(
+    // oxlint-disable-next-line prefer-named-capture-group
+    const link = /codepen\.(?:io|dev)\/([\w-]+)\/pen\//iu.exec(
       (child as HTMLAnchorElement).href || "",
     );
 
-    if (link) return link[2];
+    if (link) return link[1];
   }
 
   return "anon";
