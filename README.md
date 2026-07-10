@@ -242,7 +242,7 @@ renderCodePen({
 <button id="open-btn">Open CodePen</button>
 
 <script type="module">
-  import { renderCodePens } from "https://unpkg.com/create-codepen";
+  import { renderCodePen } from "https://unpkg.com/create-codepen";
 
   document.querySelector("#open-btn").addEventListener("click", () => {
     renderCodePen({
