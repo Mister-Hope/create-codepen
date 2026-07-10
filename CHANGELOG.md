@@ -1,3 +1,5 @@
+## [2.0.3](https://github.com/Mister-Hope/create-codepen/compare/v2.0.2...v2.0.3) (2026-07-10)
+
 ## [2.0.2](https://github.com/Mister-Hope/create-codepen/compare/v2.0.1...v2.0.2) (2026-03-31)
 
 ### Features
