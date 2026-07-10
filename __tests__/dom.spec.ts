@@ -6,7 +6,7 @@ import type { CodePenOptions } from "../src/options.js";
 describe("getForm function", () => {
   it("should create a form with correct attributes", () => {
     const options: CodePenOptions = { "slug-hash": "abc" };
-    const form = getForm(options as unknown as Parameters<typeof getForm>[0]);
+    const form = getForm(options);
 
     expect(form.tagName).toBe("FORM");
     expect(form.classList.contains("code-pen-embed-form")).toBe(true);
@@ -16,7 +16,7 @@ describe("getForm function", () => {
 
   it("should append hidden inputs for options", () => {
     const options: CodePenOptions = { "slug-hash": "abc", "theme-id": "123" };
-    const form = getForm(options as unknown as Parameters<typeof getForm>[0]);
+    const form = getForm(options);
     const inputs = form.querySelectorAll("input[type='hidden']");
 
     expect(inputs).toHaveLength(2);
@@ -26,7 +26,7 @@ describe("getForm function", () => {
 
   it("should not append prefill key", () => {
     const options: CodePenOptions = { "slug-hash": "abc", prefill: { title: "Test" } };
-    const form = getForm(options as unknown as Parameters<typeof getForm>[0]);
+    const form = getForm(options);
     const inputs = form.querySelectorAll("input[type='hidden']");
 
     expect(inputs).toHaveLength(1);
@@ -37,7 +37,7 @@ describe("getForm function", () => {
 describe("getIframe function", () => {
   it("should create an iframe with correct attributes", () => {
     const options: CodePenOptions = { "slug-hash": "abc", height: 500 };
-    const iframe = getIframe(options as unknown as Parameters<typeof getIframe>[0]);
+    const iframe = getIframe(options);
 
     expect(iframe.tagName).toBe("IFRAME");
     expect(iframe.height).toBe("500");
@@ -46,7 +46,7 @@ describe("getIframe function", () => {
 
   it("should create an iframe with correct attributes when prefill is present", () => {
     const options: CodePenOptions = { "slug-hash": "abc", height: 500, prefill: {} };
-    const iframe = getIframe(options as unknown as Parameters<typeof getIframe>[0]);
+    const iframe = getIframe(options);
 
     expect(iframe.tagName).toBe("IFRAME");
     expect(iframe.src).toBe("https://codepen.io/embed/prefill");
@@ -55,7 +55,7 @@ describe("getIframe function", () => {
 
   it("should create an iframe without id when no slug-hash", () => {
     const options: CodePenOptions = { height: 500, prefill: {} };
-    const iframe = getIframe(options as unknown as Parameters<typeof getIframe>[0]);
+    const iframe = getIframe(options);
 
     expect(iframe.tagName).toBe("IFRAME");
     expect(iframe.src).toBe("https://codepen.io/embed/prefill");
@@ -64,7 +64,7 @@ describe("getIframe function", () => {
 
   it("should create an iframe with id when slug-hash contains slash", () => {
     const options: CodePenOptions = { "slug-hash": "abc/def" };
-    const iframe = getIframe(options as unknown as Parameters<typeof getIframe>[0]);
+    const iframe = getIframe(options);
 
     expect(iframe.id).toBe("code-pen-embed-abc_def");
   });

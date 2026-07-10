@@ -1,6 +1,18 @@
-# Changelog
+## [2.0.2](https://github.com/Mister-Hope/create-codepen/compare/v2.0.1...v2.0.2) (2026-03-31)
 
-All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
+### Features
+
+- update ([8cd9f5f](https://github.com/Mister-Hope/create-codepen/commit/8cd9f5ff11b9bcae9a867979e6dbeb6559a0ed9e))
+
+## [2.0.1](https://github.com/Mister-Hope/create-codepen/compare/v2.0.0...v2.0.1) (2026-01-29)
+
+### ⚠ BREAKING CHANGES
+
+- drop node 18
+
+### Features
+
+- drop node 18 ([91574e3](https://github.com/Mister-Hope/create-codepen/commit/91574e3f48ec881de4e2fc4ff3ece662cdf9aacd))
 
 ## [2.0.0](https://github.com/Mister-Hope/create-codepen/compare/v1.0.1...v2.0.0) (2024-05-21)
 
@@ -8,7 +20,7 @@ All notable changes to this project will be documented in this file. See [commit
 
 - remove cjs and deprecated options ([d7756b8](https://github.com/Mister-Hope/create-codepen/commit/d7756b8211602738ae186ed417df9af265599875))
 
-### [1.0.1](https://github.com/Mister-Hope/create-codepen/compare/v1.0.0...v1.0.1) (2023-10-10)
+## [1.0.1](https://github.com/Mister-Hope/create-codepen/compare/v1.0.0...v1.0.1) (2023-10-10)
 
 ## [1.0.0](https://github.com/Mister-Hope/create-codepen/compare/22bb46d3de6b4da77efe224da03853b4345450eb...v1.0.0) (2023-10-10)
 
