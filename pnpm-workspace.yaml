@@ -10,9 +10,6 @@ packageExtensions:
       "conventional-changelog-core":
         optional: true
 
-configDependencies:
-  pacquet: ^0.11.12
-
 enableGlobalVirtualStore: true
 
 minimumReleaseAgeExclude:
