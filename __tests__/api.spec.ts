@@ -29,8 +29,7 @@ describe("renderCodePen function", () => {
   });
 
   it("should open in new window if selector is not provided", () => {
-    const submitSpy = vi.fn<() => void>();
-    HTMLFormElement.prototype.submit = submitSpy;
+    const submitSpy = vi.spyOn(HTMLFormElement.prototype, "submit").mockImplementation(() => {});
 
     renderCodePen({ prefill: { title: "Test" } });
 
@@ -41,6 +40,32 @@ describe("renderCodePen function", () => {
     expect(form?.action).toContain("https://codepen.io/embed/prefill");
 
     expect(submitSpy).toHaveBeenCalledWith();
+    submitSpy.mockRestore();
+  });
+
+  it("should open in new window for non-prefill pens when selector is not provided", () => {
+    const openSpy = vi.spyOn(globalThis, "open").mockReturnValue(null);
+
+    renderCodePen({ "slug-hash": "abc" });
+
+    expect(openSpy).toHaveBeenCalledWith(
+      "https://codepen.io/anon/embed/abc?slug-hash=abc&user=anon&name=_blank",
+      "_blank",
+    );
+
+    openSpy.mockRestore();
+  });
+
+  it("should not submit a form when opening a non-prefill pen in a new window", () => {
+    const openSpy = vi.spyOn(globalThis, "open").mockReturnValue(null);
+    const submitSpy = vi.spyOn(HTMLFormElement.prototype, "submit");
+
+    renderCodePen({ "slug-hash": "abc" });
+
+    expect(submitSpy).not.toHaveBeenCalled();
+
+    openSpy.mockRestore();
+    submitSpy.mockRestore();
   });
 
   it("should handle prefill options", () => {

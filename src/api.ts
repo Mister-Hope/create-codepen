@@ -1,5 +1,6 @@
 import { appendFragment, getForm, getIframe } from "./dom.js";
 import type { CodePenOptions } from "./options.js";
+import { getPostLink } from "./postlink.js";
 
 let idIndex = 1;
 
@@ -28,8 +29,10 @@ export const renderCodePen = (options: CodePenOptions, selector?: string | HTMLE
   if (container) {
     docFragment.append(getIframe(options));
     appendFragment(container, docFragment);
-  } else {
+  } else if (form) {
     document.body.append(docFragment);
+  } else {
+    window.open(getPostLink(options), "_blank");
   }
 
   if (form) form.submit();
