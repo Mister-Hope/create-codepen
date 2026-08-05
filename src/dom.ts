@@ -20,15 +20,40 @@ const ALLOWED_ATTRIBUTES = new Set([
   "scripts",
 ]);
 
+const parsePrefillValue = (value: string): Record<string, unknown> | null => {
+  try {
+    const parsed = JSON.parse(value) as unknown;
+
+    return typeof parsed === "object" && parsed != null && !Array.isArray(parsed)
+      ? (parsed as Record<string, unknown>)
+      : null;
+  } catch {
+    return null;
+  }
+};
+
+const parsePrefill = (raw: string | undefined): Record<string, unknown> | null => {
+  if (!raw) return null;
+
+  const direct = parsePrefillValue(raw);
+
+  if (direct) return direct;
+
+  // data-prefill may also be URL-encoded JSON. A lone "%" (e.g. CSS like
+  // "width:100%") makes decodeURIComponent throw, so escape stray percent
+  // signs first and never let a malformed value abort the whole render loop.
+  try {
+    return parsePrefillValue(decodeURIComponent(raw.replaceAll(/%(?![0-9a-f]{2})/giu, "%25")));
+  } catch {
+    return null;
+  }
+};
+
 const getDataFromDOM = (container: HTMLElement): string | void => {
   if (Object.hasOwn(container.dataset, "prefill")) {
     const options: Record<string, unknown> = {};
 
-    // oxlint-disable-next-line typescript/prefer-nullish-coalescing
-    const prefillOptions = JSON.parse(decodeURI(container.dataset.prefill || "{}")) as Record<
-      string,
-      unknown
-    >;
+    const prefillOptions = parsePrefill(container.dataset.prefill) ?? {};
 
     for (const key in prefillOptions)
       if (ALLOWED_ATTRIBUTES.has(key)) options[key] = prefillOptions[key];

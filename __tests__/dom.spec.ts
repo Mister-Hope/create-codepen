@@ -286,4 +286,84 @@ describe("getDataFromDOM function", () => {
 
     submitSpy.mockRestore();
   });
+
+  it("should handle raw percent signs in data-prefill without throwing", () => {
+    document.body.innerHTML = "";
+
+    const container = document.createElement("div");
+    container.className = "test-raw-percent";
+    container.dataset.prefill = '{"title":"width:100% test"}';
+    document.body.append(container);
+
+    expect(() => loadCodePens(".test-raw-percent")).not.toThrow();
+
+    const dataInput = document.querySelector<HTMLInputElement>('input[name="data"]');
+    expect(dataInput).not.toBeNull();
+    const data = JSON.parse(dataInput!.value) as Record<string, unknown>;
+    expect(data.title).toBe("width:100% test");
+  });
+
+  it("should handle URL-encoded data-prefill containing percent signs", () => {
+    document.body.innerHTML = "";
+
+    const container = document.createElement("div");
+    container.className = "test-encoded-percent";
+    container.dataset.prefill = encodeURIComponent('{"title":"width:100% test"}');
+    document.body.append(container);
+
+    expect(() => loadCodePens(".test-encoded-percent")).not.toThrow();
+
+    const dataInput = document.querySelector<HTMLInputElement>('input[name="data"]');
+    expect(dataInput).not.toBeNull();
+    const data = JSON.parse(dataInput!.value) as Record<string, unknown>;
+    expect(data.title).toBe("width:100% test");
+  });
+
+  it("should skip malformed data-prefill without breaking other pens", () => {
+    document.body.innerHTML = "";
+
+    const bad = document.createElement("div");
+    bad.className = "test-malformed-prefill";
+    bad.dataset.prefill = "{not valid json";
+    document.body.append(bad);
+
+    const good = document.createElement("div");
+    good.className = "test-malformed-prefill";
+    good.dataset.prefill = '{"title":"Good"}';
+    document.body.append(good);
+
+    expect(() => loadCodePens(".test-malformed-prefill")).not.toThrow();
+
+    const dataValues = [...document.querySelectorAll<HTMLInputElement>('input[name="data"]')].map(
+      (input): unknown => JSON.parse(input.value),
+    );
+
+    expect(dataValues).toContainEqual({ title: "Good" });
+  });
+
+  it("should not throw on invalid percent-encoded data-prefill", () => {
+    document.body.innerHTML = "";
+
+    const container = document.createElement("div");
+    container.className = "test-invalid-encoding";
+    container.dataset.prefill = "%E0%A4";
+    document.body.append(container);
+
+    expect(() => loadCodePens(".test-invalid-encoding")).not.toThrow();
+  });
+
+  it("should treat non-object JSON in data-prefill as empty", () => {
+    document.body.innerHTML = "";
+
+    const container = document.createElement("div");
+    container.className = "test-null-prefill";
+    container.dataset.prefill = "null";
+    document.body.append(container);
+
+    expect(() => loadCodePens(".test-null-prefill")).not.toThrow();
+
+    const dataInput = document.querySelector<HTMLInputElement>('input[name="data"]');
+    expect(dataInput).not.toBeNull();
+    expect(dataInput!.value).toBe("{}");
+  });
 });
