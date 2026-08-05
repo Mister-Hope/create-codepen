@@ -93,11 +93,9 @@ const getUserFromDom = (result: CodePenDomOptions, container: HTMLElement): stri
   if (typeof result.user === "string") return result.user;
 
   // try to find a link in users
-  for (const child of container.children) {
+  for (const anchor of container.querySelectorAll("a")) {
     // oxlint-disable-next-line prefer-named-capture-group
-    const link = /codepen\.(?:io|dev)\/([\w-]+)\/pen\//iu.exec(
-      (child as HTMLAnchorElement).href || "",
-    );
+    const link = /codepen\.(?:io|dev)\/([\w-]+)\/pen\//iu.exec(anchor.href || "");
 
     if (link) return link[1];
   }
