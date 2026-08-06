@@ -17,8 +17,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Mister-Hope/create-codepen.git",
-    "directory": "packages/theme"
+    "url": "git+https://github.com/Mister-Hope/create-codepen.git"
   },
   "files": [
     "dist"
@@ -66,11 +65,6 @@
   "nano-staged": {
     "**/*": "oxfmt --no-error-on-unmatched-pattern",
     "*.{js,ts}": "oxlint --fix --deny-warnings --report-unused-disable-directives"
-  },
-  "commitlint": {
-    "extends": [
-      "@commitlint/config-conventional"
-    ]
   },
   "devEngines": {
     "packageManager": {
