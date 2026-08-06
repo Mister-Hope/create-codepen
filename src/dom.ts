@@ -120,8 +120,12 @@ export const getIframe = (options: CodePenConfig): HTMLIFrameElement => {
 
   if (!("prefill" in options)) attribute.loading = "lazy";
 
-  if (options["slug-hash"])
-    attribute.id = `code-pen-embed-${options["slug-hash"].replace("/", "_")}`;
+  if (options["slug-hash"]) {
+    const baseId = `code-pen-embed-${options["slug-hash"].replace("/", "_")}`;
+
+    // avoid duplicate ids when the same pen is embedded more than once
+    attribute.id = document.querySelector(`#${CSS.escape(baseId)}`) ? `${baseId}-${name}` : baseId;
+  }
 
   return createElement("iframe", attribute);
 };

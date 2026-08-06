@@ -93,6 +93,26 @@ describe("renderCodePen function", () => {
     expect(names[0]).not.toBe(names[1]);
   });
 
+  it("should not create duplicate iframe ids for the same slug-hash", () => {
+    document.body.innerHTML = "";
+
+    const first = document.createElement("div");
+    first.className = "test-dup-1";
+    document.body.append(first);
+    const second = document.createElement("div");
+    second.className = "test-dup-2";
+    document.body.append(second);
+
+    renderCodePen({ "slug-hash": "same" }, ".test-dup-1");
+    renderCodePen({ "slug-hash": "same" }, ".test-dup-2");
+
+    const ids = [...document.querySelectorAll("iframe")].map((iframe) => iframe.id);
+
+    expect(ids).toHaveLength(2);
+    expect(ids[0]).toBe("code-pen-embed-same");
+    expect(new Set(ids).size).toBe(2);
+  });
+
   it("should handle prefill options", () => {
     const container = document.createElement("div");
 
