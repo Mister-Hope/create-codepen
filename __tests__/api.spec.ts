@@ -1,6 +1,7 @@
 import { describe, expect, it, vi } from "vitest";
 
 import { renderCodePen } from "../src/api.js";
+import type { CodePenOptions } from "../src/options.js";
 
 describe("renderCodePen function", () => {
   it("should render an iframe in the container", () => {
@@ -66,6 +67,30 @@ describe("renderCodePen function", () => {
 
     openSpy.mockRestore();
     submitSpy.mockRestore();
+  });
+
+  it("should not mutate the caller's options object", () => {
+    const options: CodePenOptions = { "slug-hash": "abc" };
+    const container = document.createElement("div");
+
+    renderCodePen(options, container);
+
+    expect(options).toStrictEqual({ "slug-hash": "abc" });
+  });
+
+  it("should assign a unique iframe name when reusing the same options object", () => {
+    const options: CodePenOptions = { "slug-hash": "abc" };
+    const first = document.createElement("div");
+    const second = document.createElement("div");
+
+    renderCodePen(options, first);
+    renderCodePen(options, second);
+
+    const names = [first, second].map((container) =>
+      container.querySelector("iframe")?.getAttribute("name"),
+    );
+
+    expect(names[0]).not.toBe(names[1]);
   });
 
   it("should handle prefill options", () => {

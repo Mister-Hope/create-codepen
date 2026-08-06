@@ -137,6 +137,25 @@ describe("loadCodePens function", () => {
     container.remove();
     wrapper?.remove();
   });
+
+  it("should skip containers without slug-hash or prefill", () => {
+    document.body.innerHTML = "";
+
+    const bad = document.createElement("div");
+    bad.className = "codepen";
+    document.body.append(bad);
+
+    const good = document.createElement("div");
+    good.className = "codepen";
+    good.dataset.slugHash = "abc";
+    document.body.append(good);
+
+    expect(() => loadCodePens()).not.toThrow();
+
+    const iframes = document.querySelectorAll("iframe");
+    expect(iframes).toHaveLength(1);
+    expect(iframes[0].src).toContain("codepen.io/anon/embed/abc");
+  });
 });
 
 describe("openCodePens function", () => {
@@ -152,8 +171,10 @@ describe("openCodePens function", () => {
 
     openCodePens();
 
+    // assert the embed URL and window target without depending on the
+    // module-level iframe name counter, which accumulates across tests
     expect(openSpy).toHaveBeenCalledWith(
-      "https://codepen.io/anon/embed/abc?slug-hash=abc&user=anon&name=code-pen-embed-2",
+      expect.stringContaining("https://codepen.io/anon/embed/abc?"),
       "_blank",
     );
 

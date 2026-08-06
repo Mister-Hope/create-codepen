@@ -187,9 +187,15 @@ const renderCodePens = (selector: string, _options: CodePenDomOptions): void => 
   const containers = [...document.querySelectorAll<HTMLElement>(selector)];
 
   for (const container of containers) {
+    const domOptions = getOptionsFromDom(container);
+
+    // a container without slug-hash or prefill is not a CodePen embed;
+    // skip it instead of letting getPostLink throw and abort the whole loop
+    if (!domOptions) continue;
+
     const options: CodePenConfig = {
       ..._options,
-      ...getOptionsFromDom(container),
+      ...domOptions,
       // oxlint-disable-next-line no-plusplus
       name: `code-pen-embed-${idIndex++}`,
     };
