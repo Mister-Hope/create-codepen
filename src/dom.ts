@@ -101,6 +101,8 @@ export const getForm = (options: CodePenConfig): HTMLFormElement => {
   return form;
 };
 
+const usedIframeIds = new Set<string>();
+
 export const getIframe = (options: CodePenConfig): HTMLIFrameElement => {
   const { height = 300, class: className = "", name = "CodePen Embed" } = options;
   const attribute: Record<string, string | number> = {
@@ -123,8 +125,12 @@ export const getIframe = (options: CodePenConfig): HTMLIFrameElement => {
   if (options["slug-hash"]) {
     const baseId = `code-pen-embed-${options["slug-hash"].replace("/", "_")}`;
 
-    // avoid duplicate ids when the same pen is embedded more than once
-    attribute.id = document.querySelector(`#${CSS.escape(baseId)}`) ? `${baseId}-${name}` : baseId;
+    // avoid duplicate ids when the same pen is embedded more than once, even
+    // when the container is not attached to the document yet
+    const id = usedIframeIds.has(baseId) ? `${baseId}-${name}` : baseId;
+
+    usedIframeIds.add(id);
+    attribute.id = id;
   }
 
   return createElement("iframe", attribute);

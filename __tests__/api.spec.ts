@@ -113,6 +113,19 @@ describe("renderCodePen function", () => {
     expect(new Set(ids).size).toBe(2);
   });
 
+  it("should not create duplicate iframe ids when containers are detached", () => {
+    const first = document.createElement("div");
+    const second = document.createElement("div");
+
+    renderCodePen({ "slug-hash": "unmounted" }, first);
+    renderCodePen({ "slug-hash": "unmounted" }, second);
+
+    const ids = [first, second].map((container) => container.querySelector("iframe")?.id);
+
+    expect(ids[0]).toBe("code-pen-embed-unmounted");
+    expect(new Set(ids).size).toBe(2);
+  });
+
   it("should handle prefill options", () => {
     const container = document.createElement("div");
 
