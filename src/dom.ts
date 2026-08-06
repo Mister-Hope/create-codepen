@@ -208,21 +208,15 @@ const renderCodePens = (selector: string, _options: CodePenDomOptions): void => 
   }
 };
 
-let domReadyRegistered = false;
-
 export const loadCodePens = (selector = ".codepen", options: CodePenDomOptions = {}): void => {
   if (document.readyState === "loading") {
-    if (!domReadyRegistered) {
-      domReadyRegistered = true;
-
-      document.addEventListener(
-        "DOMContentLoaded",
-        () => {
-          renderCodePens(selector, options);
-        },
-        { once: true },
-      );
-    }
+    document.addEventListener(
+      "DOMContentLoaded",
+      () => {
+        renderCodePens(selector, options);
+      },
+      { once: true },
+    );
   } else {
     renderCodePens(selector, options);
   }

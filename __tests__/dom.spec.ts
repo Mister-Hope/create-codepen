@@ -109,7 +109,7 @@ describe("appendFragment function", () => {
 });
 
 describe("loadCodePens function", () => {
-  it("should register the DOMContentLoaded listener only once", () => {
+  it("should defer rendering until DOMContentLoaded when document is loading", () => {
     const addSpy = vi.spyOn(document, "addEventListener");
 
     Object.defineProperty(document, "readyState", {
@@ -120,9 +120,6 @@ describe("loadCodePens function", () => {
     });
 
     loadCodePens();
-    loadCodePens();
-
-    expect(addSpy).toHaveBeenCalledTimes(1);
     expect(addSpy).toHaveBeenCalledWith("DOMContentLoaded", expect.any(Function), {
       once: true,
     });
@@ -132,6 +129,45 @@ describe("loadCodePens function", () => {
     addSpy.mockRestore();
 
     // Restore readyState so later tests see "complete"
+    Object.defineProperty(document, "readyState", {
+      get() {
+        return "complete";
+      },
+      configurable: true,
+    });
+  });
+
+  it("should render pens from multiple loadCodePens calls with different selectors", () => {
+    document.body.innerHTML = "";
+
+    const first = document.createElement("div");
+    first.className = "codepen-a";
+    first.dataset.slugHash = "abc";
+    document.body.append(first);
+
+    const second = document.createElement("div");
+    second.className = "codepen-b";
+    second.dataset.slugHash = "def";
+    document.body.append(second);
+
+    Object.defineProperty(document, "readyState", {
+      get() {
+        return "loading";
+      },
+      configurable: true,
+    });
+
+    loadCodePens(".codepen-a");
+    loadCodePens(".codepen-b");
+
+    // nothing is rendered until the DOM is ready
+    expect(document.querySelectorAll("iframe")).toHaveLength(0);
+
+    document.dispatchEvent(new Event("DOMContentLoaded"));
+
+    // both selectors must render, even when called multiple times while loading
+    expect(document.querySelectorAll("iframe")).toHaveLength(2);
+
     Object.defineProperty(document, "readyState", {
       get() {
         return "complete";
