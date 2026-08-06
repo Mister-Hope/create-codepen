@@ -115,7 +115,7 @@ export const getIframe = (options: CodePenConfig): HTMLIFrameElement => {
     name,
     scrolling: "no",
     style: "width: 100%; overflow: hidden; display: block;",
-    title: options["pen-title"] ?? name,
+    title: options["pen-title"] ?? "CodePen Embed",
   };
 
   if (!("prefill" in options)) attribute.loading = "lazy";

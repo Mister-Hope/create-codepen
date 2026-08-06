@@ -68,6 +68,20 @@ describe("getIframe function", () => {
 
     expect(iframe.id).toBe("code-pen-embed-abc_def");
   });
+
+  it("should use pen-title as iframe title when provided", () => {
+    const options: CodePenOptions = { "slug-hash": "abc", "pen-title": "My Pen" };
+    const iframe = getIframe(options);
+
+    expect(iframe.title).toBe("My Pen");
+  });
+
+  it("should fall back to a friendly title instead of the technical name", () => {
+    const options: CodePenOptions = { "slug-hash": "abc", name: "code-pen-api-1" };
+    const iframe = getIframe(options);
+
+    expect(iframe.title).toBe("CodePen Embed");
+  });
 });
 
 describe("appendFragment function", () => {
