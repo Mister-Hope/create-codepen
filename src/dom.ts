@@ -164,11 +164,14 @@ const generateFormWrapper = (options: CodePenDomOptions, container: HTMLElement)
     if ("prefill" in options) {
       const data = getDataFromDOM(container);
 
-      if (data) options.data = data;
+      // without prefill content there is nothing meaningful to open
+      if (data) {
+        options.data = data;
 
-      form = getForm(options);
-      container.append(form);
-      form.submit();
+        form = getForm(options);
+        container.append(form);
+        form.submit();
+      }
     } else {
       window.open(getPostLink(options), "_blank");
     }

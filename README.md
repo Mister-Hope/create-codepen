@@ -116,19 +116,19 @@ openCodePens(selector?: string): void
 
 Used by `renderCodePen()` and `loadCodePens()`.
 
-| Option        | Type                      | Default    | Description                                                                       |
-| ------------- | ------------------------- | ---------- | --------------------------------------------------------------------------------- |
-| `slug-hash`   | `string`                  | —          | CodePen ID (e.g., `XWJPxpZ`). **Required** for non-prefill embeds                 |
-| `user`        | `string`                  | `"anon"`   | CodePen username                                                                  |
-| `default-tab` | `string`                  | `"result"` | Tab(s) shown initially: `"html"`, `"css"`, `"js"`, `"result"`, or comma-separated |
-| `theme-id`    | `string \| number`        | `0`        | Theme ID (e.g., `"light"`)                                                        |
-| `pen-title`   | `string`                  | —          | Title for the embed iframe                                                        |
-| `open`        | `"true" \| "false"`       | `"false"`  | Open in new window instead of embedding                                           |
-| `editable`    | `"true" \| "false"`       | `"false"`  | Allow editing in embed                                                            |
-| `preview`     | `"true" \| "false"`       | `"false"`  | Show preview mode                                                                 |
-| `animations`  | `"run" \| "stop-after-5"` | —          | Animation behavior                                                                |
-| `zoom`        | `1 \| 0.5 \| 0.25`        | `1`        | Zoom level                                                                        |
-| `token`       | `string`                  | —          | Pen token for private pens                                                        |
+| Option        | Type                      | Default    | Description                                                                                                                                                       |
+| ------------- | ------------------------- | ---------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `slug-hash`   | `string`                  | —          | CodePen ID (e.g., `XWJPxpZ`). **Required** for non-prefill embeds                                                                                                 |
+| `user`        | `string`                  | `"anon"`   | CodePen username                                                                                                                                                  |
+| `default-tab` | `string`                  | `"result"` | Tab(s) shown initially: `"html"`, `"css"`, `"js"`, `"result"`, or comma-separated                                                                                 |
+| `theme-id`    | `string \| number`        | `0`        | Theme ID (e.g., `"light"`)                                                                                                                                        |
+| `pen-title`   | `string`                  | —          | Title for the embed iframe                                                                                                                                        |
+| `open`        | `"true" \| "false"`       | `"false"`  | Only for `loadCodePens()`: open in a new window instead of embedding. `renderCodePen()` ignores it — it embeds with a selector and opens a new window without one |
+| `editable`    | `"true" \| "false"`       | `"false"`  | Allow editing in embed                                                                                                                                            |
+| `preview`     | `"true" \| "false"`       | `"false"`  | Show preview mode                                                                                                                                                 |
+| `animations`  | `"run" \| "stop-after-5"` | —          | Animation behavior                                                                                                                                                |
+| `zoom`        | `1 \| 0.5 \| 0.25`        | `1`        | Zoom level                                                                                                                                                        |
+| `token`       | `string`                  | —          | Pen token for private pens                                                                                                                                        |
 
 ---
 

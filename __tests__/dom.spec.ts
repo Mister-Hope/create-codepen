@@ -358,7 +358,7 @@ describe("getDataFromDOM function", () => {
 
     loadCodePens(".test-open-no-data-prefill", { open: "true", prefill: {} });
 
-    expect(submitSpy).toHaveBeenCalledWith();
+    expect(submitSpy).not.toHaveBeenCalled();
 
     submitSpy.mockRestore();
   });

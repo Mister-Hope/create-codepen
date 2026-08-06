@@ -50,7 +50,7 @@ describe("renderCodePen function", () => {
     renderCodePen({ "slug-hash": "abc" });
 
     expect(openSpy).toHaveBeenCalledWith(
-      "https://codepen.io/anon/embed/abc?slug-hash=abc&user=anon&name=_blank",
+      "https://codepen.io/anon/embed/abc?slug-hash=abc&user=anon",
       "_blank",
     );
 

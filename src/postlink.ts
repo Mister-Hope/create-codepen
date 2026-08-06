@@ -6,7 +6,7 @@ const encodeOptions = (options: CodePenDomOptions): string => {
   let result = "";
 
   for (const key in options) {
-    if (key !== "prefill" && key !== "open") {
+    if (key !== "prefill" && key !== "open" && key !== "name") {
       if (result !== "") result += "&";
 
       result += `${key}=${encodeURIComponent(options[key] as string | number | boolean)}`;
