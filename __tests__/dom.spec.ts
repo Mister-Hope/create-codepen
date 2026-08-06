@@ -109,7 +109,7 @@ describe("appendFragment function", () => {
 });
 
 describe("loadCodePens function", () => {
-  it("should call renderCodePens on DOMContentLoaded when document is loading", () => {
+  it("should register the DOMContentLoaded listener only once", () => {
     const addSpy = vi.spyOn(document, "addEventListener");
 
     Object.defineProperty(document, "readyState", {
@@ -120,7 +120,12 @@ describe("loadCodePens function", () => {
     });
 
     loadCodePens();
-    expect(addSpy).toHaveBeenCalledWith("DOMContentLoaded", expect.any(Function));
+    loadCodePens();
+
+    expect(addSpy).toHaveBeenCalledTimes(1);
+    expect(addSpy).toHaveBeenCalledWith("DOMContentLoaded", expect.any(Function), {
+      once: true,
+    });
 
     document.dispatchEvent(new Event("DOMContentLoaded"));
 
