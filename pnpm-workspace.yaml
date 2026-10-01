@@ -10,18 +10,19 @@ packageExtensions:
       "conventional-changelog-core":
         optional: true
 
-enableGlobalVirtualStore: true
+virtualStoreType: global
 
 minimumReleaseAgeExclude:
+  - "@mr-hope/*"
   - "@oxfmt/*"
   - "@oxlint/*"
   - "@vitest/*"
   - "@vue/*"
-  - oxc-config-hope
-  - oxfmt
-  - oxlint
-  - vitest
-  - vue
+  - "oxc-config-hope"
+  - "oxfmt"
+  - "oxlint"
+  - "vitest"
+  - "vue"
 
 trustPolicy: no-downgrade
 
@@ -30,3 +31,6 @@ trustPolicyExclude:
   - semver@6.3.1
   # node types
   - undici-types@6.21.0
+minimumReleaseAgeExcludePrune: true
+trustPolicyExcludePrune: true
+trustPolicyIgnoreAfter: 720
