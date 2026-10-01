@@ -22,15 +22,9 @@ minimumReleaseAgeExclude:
   - "oxfmt"
   - "oxlint"
   - "vitest"
-  - "vue"
 
 trustPolicy: no-downgrade
 
-trustPolicyExclude:
-  # babel
-  - semver@6.3.1
-  # node types
-  - undici-types@6.21.0
 minimumReleaseAgeExcludePrune: true
 trustPolicyExcludePrune: true
 trustPolicyIgnoreAfter: 720
