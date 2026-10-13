@@ -1,3 +1,5 @@
+virtualStoreType: global
+
 packageExtensions:
   "@codecov/rollup-plugin":
     peerDependenciesMeta:
@@ -10,8 +12,6 @@ packageExtensions:
       "conventional-changelog-core":
         optional: true
 
-virtualStoreType: global
-
 minimumReleaseAgeExclude:
   - "@mr-hope/*"
   - "@oxfmt/*"
@@ -22,9 +22,7 @@ minimumReleaseAgeExclude:
   - "oxfmt"
   - "oxlint"
   - "vitest"
-
-trustPolicy: no-downgrade
-
 minimumReleaseAgeExcludePrune: true
+trustPolicy: no-downgrade
 trustPolicyExcludePrune: true
 trustPolicyIgnoreAfter: 720
