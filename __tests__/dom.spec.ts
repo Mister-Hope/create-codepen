@@ -443,3 +443,52 @@ describe("getDataFromDOM function", () => {
     expect(dataInput!.value).toBe("{}");
   });
 });
+
+describe("appendFragment re-render behavior", () => {
+  it("should preserve the host id on the wrapper", () => {
+    const parent = document.createElement("div");
+    const container = document.createElement("div");
+    container.id = "host";
+    parent.append(container);
+
+    const fragment = document.createDocumentFragment();
+    fragment.append(document.createElement("span"));
+
+    const wrapper = appendFragment(container, fragment);
+
+    expect(wrapper.id).toBe("host");
+    expect(wrapper.dataset.codePenRendered).toBe("true");
+    expect(wrapper.querySelectorAll("span")).toHaveLength(1);
+  });
+
+  it("should replace the content when rendering into a wrapper again", () => {
+    const parent = document.createElement("div");
+    const container = document.createElement("div");
+    parent.append(container);
+
+    const first = document.createDocumentFragment();
+    first.append(document.createElement("span"));
+    const wrapper = appendFragment(container, first);
+
+    const second = document.createDocumentFragment();
+    second.append(document.createElement("iframe"));
+
+    expect(appendFragment(wrapper, second)).toBe(wrapper);
+    expect(wrapper.querySelectorAll("span")).toHaveLength(0);
+    expect(wrapper.querySelectorAll("iframe")).toHaveLength(1);
+  });
+
+  it("should replace the content when rendering into a detached host again", () => {
+    const container = document.createElement("div");
+    const first = document.createDocumentFragment();
+    first.append(document.createElement("span"));
+    appendFragment(container, first);
+
+    const second = document.createDocumentFragment();
+    second.append(document.createElement("em"));
+    appendFragment(container, second);
+
+    expect(container.querySelectorAll("span")).toHaveLength(0);
+    expect(container.querySelectorAll("em")).toHaveLength(1);
+  });
+});

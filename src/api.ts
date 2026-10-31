@@ -10,7 +10,13 @@ export const renderCodePen = (options: CodePenOptions, selector?: string | HTMLE
 
   if (!(container instanceof HTMLElement) && selector != null) {
     // oxlint-disable-next-line typescript/no-base-to-string
-    throw new TypeError(`Invalid selector: ${selector?.toString()}`);
+    const value = selector?.toString();
+
+    throw new TypeError(
+      typeof selector === "string"
+        ? `Selector matched no element: ${value}. The matched node is replaced by .code-pen-embed-wrapper after render.`
+        : `Invalid selector: ${value}`,
+    );
   }
 
   // work on a copy so the caller's options object is never mutated

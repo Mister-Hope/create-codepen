@@ -155,11 +155,31 @@ describe("renderCodePen function", () => {
   it("should throw error if selector is invalid", () => {
     expect(() => {
       renderCodePen({ "slug-hash": "xyz" }, "#non-existent");
-    }).toThrow("Invalid selector: #non-existent");
+    }).toThrow("Selector matched no element: #non-existent");
 
     expect(() => {
       // oxlint-disable-next-line typescript/no-unsafe-argument
       renderCodePen({ "slug-hash": "xyz" }, 123 as any);
     }).toThrow("Invalid selector: 123");
+  });
+
+  it("should re-render into the existing wrapper instead of throwing", () => {
+    document.body.innerHTML = "";
+
+    const container = document.createElement("div");
+    container.id = "rerender-host";
+    document.body.append(container);
+
+    renderCodePen({ "slug-hash": "abc" }, "#rerender-host");
+    renderCodePen({ "slug-hash": "def" }, "#rerender-host");
+
+    const wrapper = document.querySelector("#rerender-host");
+
+    expect(wrapper?.classList.contains("code-pen-embed-wrapper")).toBe(true);
+
+    const iframes = wrapper?.querySelectorAll("iframe");
+
+    expect(iframes).toHaveLength(1);
+    expect(iframes?.[0]?.src).toContain("https://codepen.io/anon/embed/def");
   });
 });

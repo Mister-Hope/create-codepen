@@ -140,10 +140,23 @@ export const appendFragment = (
   container: HTMLElement,
   docFragment: DocumentFragment,
 ): HTMLElement => {
+  // rendering into an existing wrapper replaces its content instead of
+  // nesting a second embed, which makes repeated renders idempotent
+  if (container.dataset.codePenRendered === "true") {
+    container.replaceChildren(docFragment);
+
+    return container;
+  }
+
   if (container.parentNode) {
     const div = document.createElement("div");
 
     div.className = "code-pen-embed-wrapper";
+    div.dataset.codePenRendered = "true";
+
+    // keep the host id so the same selector can target the wrapper later
+    if (container.id) div.id = container.id;
+
     div.append(docFragment);
 
     container.parentNode.replaceChild(div, container);
@@ -151,6 +164,7 @@ export const appendFragment = (
     return div;
   }
 
+  container.dataset.codePenRendered = "true";
   container.append(docFragment);
 
   return container;
