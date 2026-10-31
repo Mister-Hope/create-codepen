@@ -467,6 +467,60 @@ describe("getDataFromDOM function", () => {
     expect(dataInput).not.toBeNull();
     expect(dataInput!.value).toBe("{}");
   });
+
+  it("should not emit unknown fields for unsupported data-lang values", () => {
+    document.body.innerHTML = "";
+
+    const container = document.createElement("div");
+    container.className = "test-unknown-lang";
+    container.dataset.prefill = '{"title":"My Pen"}';
+
+    const unsupported = document.createElement("pre");
+    unsupported.dataset.lang = "svelte";
+    unsupported.textContent = "let x = 1;";
+    container.append(unsupported);
+
+    document.body.append(container);
+    loadCodePens(".test-unknown-lang");
+
+    const dataInput = document.querySelector<HTMLInputElement>('input[name="data"]');
+    expect(dataInput).not.toBeNull();
+
+    const data = JSON.parse(dataInput!.value) as Record<string, unknown>;
+
+    expect(data).toStrictEqual({ title: "My Pen" });
+  });
+
+  it("should normalize data-lang casing and whitespace", () => {
+    document.body.innerHTML = "";
+
+    const container = document.createElement("div");
+    container.className = "test-normalized-lang";
+    container.dataset.prefill = '{"title":"My Pen"}';
+
+    const htmlElement = document.createElement("pre");
+    htmlElement.dataset.lang = " HTML ";
+    htmlElement.textContent = "<h1>Hello</h1>";
+    container.append(htmlElement);
+
+    const cssElement = document.createElement("pre");
+    cssElement.dataset.lang = "SCSS";
+    cssElement.textContent = "body { color: red; }";
+    container.append(cssElement);
+
+    document.body.append(container);
+    loadCodePens(".test-normalized-lang");
+
+    const dataInput = document.querySelector<HTMLInputElement>('input[name="data"]');
+    const data = JSON.parse(dataInput!.value) as Record<string, unknown>;
+
+    expect(data).toMatchObject({
+      title: "My Pen",
+      html: "<h1>Hello</h1>",
+      css: "body { color: red; }",
+      css_pre_processor: "scss",
+    });
+  });
 });
 
 describe("appendFragment re-render behavior", () => {
