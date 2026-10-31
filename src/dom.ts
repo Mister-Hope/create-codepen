@@ -60,18 +60,23 @@ const getDataFromDOM = (container: HTMLElement): string | void => {
 
     const elements = [...container.querySelectorAll<HTMLElement>("[data-lang]")];
 
-    elements.forEach((element) => {
-      const { lang, langVersion } = element.dataset;
+    for (const element of elements) {
+      // the element matched the [data-lang] selector above, so the attribute exists
+      const lang = String(element.dataset.lang).trim().toLowerCase();
+      const { langVersion } = element.dataset;
+      const type = getType(lang);
+
+      // unsupported languages would otherwise be sent as `unknown` and
+      // `unknown_pre_processor`, which silently drops the code
+      if (type === "unknown") continue;
 
       if ("optionsAutoprefixer" in element.dataset) options.css_prefix = "autoprefixer";
-
-      const type = getType(lang);
 
       options[type] = element.textContent;
 
       if (lang !== type) options[`${type}_pre_processor`] = lang;
       if (langVersion) options[`${type}_version`] = langVersion;
-    });
+    }
 
     return JSON.stringify(options);
   }
