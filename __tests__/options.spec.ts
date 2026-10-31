@@ -92,4 +92,24 @@ describe(getOptionsFromDom, () => {
 
     expect(getOptionsFromDom(div)?.user).toBe("real-user");
   });
+
+  it("should prefer the pen link that matches the slug hash", () => {
+    const div = document.createElement("div");
+
+    div.dataset.slugHash = "abc";
+    div.innerHTML =
+      '<a href="https://codepen.io/other-user/pen/xyz">other</a>' +
+      '<a href="https://codepen.io/real-user/pen/abc">real</a>';
+
+    expect(getOptionsFromDom(div)?.user).toBe("real-user");
+  });
+
+  it("should fall back to the first pen link when no link matches the slug hash", () => {
+    const div = document.createElement("div");
+
+    div.dataset.slugHash = "abc";
+    div.innerHTML = '<a href="https://codepen.io/other-user/pen/xyz">other</a>';
+
+    expect(getOptionsFromDom(div)?.user).toBe("other-user");
+  });
 });

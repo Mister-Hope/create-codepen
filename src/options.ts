@@ -30,6 +30,13 @@ export interface CodePenStyleOptions {
   "custom-css-url"?: string;
 }
 
+/**
+ * Options accepted by `loadCodePens()`.
+ *
+ * Any additional `data-*` attribute on a container is passed through as an option and serialized
+ * into the embed URL or prefill form, so misspelled attributes are forwarded verbatim. DOM
+ * attributes are always strings, even for boolean-style options such as `open` and `preview`.
+ */
 export interface CodePenDomOptions extends CodePenStyleOptions, Record<string, unknown> {
   /**
    * Id of theme
@@ -92,15 +99,22 @@ export interface CodePenOptions extends CodePenDomOptions {
 const getUserFromDom = (result: CodePenDomOptions, container: HTMLElement): string => {
   if (typeof result.user === "string" && result.user.trim()) return result.user;
 
-  // try to find a link in users
+  const slugHash = result["slug-hash"];
+  let fallbackUser: string | undefined;
+
+  // try to find a link in users; prefer the link that points at this pen
   for (const anchor of container.querySelectorAll("a")) {
     // oxlint-disable-next-line prefer-named-capture-group
-    const link = /codepen\.(?:io|dev)\/([\w-]+)\/pen\//iu.exec(anchor.href || "");
+    const link = /codepen\.(?:io|dev)\/([\w-]+)\/pen\/([\w-]+)/iu.exec(anchor.href || "");
 
-    if (link) return link[1];
+    if (link) {
+      if (slugHash && link[2] === slugHash) return link[1];
+
+      fallbackUser ??= link[1];
+    }
   }
 
-  return "anon";
+  return fallbackUser ?? "anon";
 };
 
 export const getOptionsFromDom = (container: HTMLElement): CodePenDomOptions | null => {
@@ -109,6 +123,9 @@ export const getOptionsFromDom = (container: HTMLElement): CodePenDomOptions | n
 
   for (const { name, value } of attributes)
     if (name.startsWith("data-")) result[name.replace("data-", "")] = value;
+
+  // `prefill` is kept as the raw attribute string here; it is only used as a
+  // marker by getPostLink/getIframe and parsed later by getDataFromDOM
 
   if ("prefill" in result || result["slug-hash"]) {
     result.user = getUserFromDom(result, container);
