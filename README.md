@@ -110,6 +110,20 @@ openCodePens(selector?: string): void
 
 ---
 
+## DOM contract and re-rendering
+
+`renderCodePen()` and `loadCodePens()` replace the matched host element with:
+
+```html
+<div class="code-pen-embed-wrapper" data-code-pen-rendered="true">…</div>
+```
+
+The wrapper keeps the host `id` (but not its `class` or inline `style`), so target it with `#your-id` or `.code-pen-embed-wrapper` afterwards.
+
+Marked wrappers can be rendered again: calling `renderCodePen(options, "#your-id")` replaces the wrapper content instead of nesting another iframe. Do not keep references to the original host node.
+
+---
+
 ## Options
 
 ### General Embed Options
