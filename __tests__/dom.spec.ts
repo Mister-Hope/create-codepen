@@ -588,3 +588,11 @@ describe("getForm internal option handling", () => {
     ).toStrictEqual(["slug-hash"]);
   });
 });
+
+describe("getIframe id generation", () => {
+  it("should replace every slash in the iframe id", () => {
+    const iframe = getIframe({ "slug-hash": "a/b/c" });
+
+    expect(iframe.id).toBe("code-pen-embed-a_b_c");
+  });
+});

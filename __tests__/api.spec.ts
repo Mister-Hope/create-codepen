@@ -200,4 +200,21 @@ describe("renderCodePen function", () => {
 
     submitSpy.mockRestore();
   });
+
+  it("should keep iframe ids unique when the same pen and explicit name are rendered three times", () => {
+    document.body.innerHTML = "";
+
+    for (let index = 1; index <= 3; index += 1) {
+      const container = document.createElement("div");
+      container.className = `test-triple-${index}`;
+      document.body.append(container);
+      renderCodePen({ "slug-hash": "same-triple", name: "fixed-name" }, `.test-triple-${index}`);
+    }
+
+    const ids = [...document.querySelectorAll("iframe")].map((iframe) => iframe.id);
+
+    expect(ids).toHaveLength(3);
+    expect(ids[0]).toBe("code-pen-embed-same-triple");
+    expect(new Set(ids).size).toBe(3);
+  });
 });
