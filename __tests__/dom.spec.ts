@@ -250,6 +250,7 @@ describe("openCodePens function", () => {
     openCodePens();
 
     expect(submitSpy).toHaveBeenCalledWith();
+    expect(document.querySelectorAll("form")).toHaveLength(0);
 
     submitSpy.mockRestore();
     container.remove();
@@ -490,5 +491,22 @@ describe("appendFragment re-render behavior", () => {
 
     expect(container.querySelectorAll("span")).toHaveLength(0);
     expect(container.querySelectorAll("em")).toHaveLength(1);
+  });
+});
+
+describe("getForm internal option handling", () => {
+  it("should skip internal name and nullish options", () => {
+    const options = {
+      "slug-hash": "abc",
+      name: "code-pen-embed-1",
+      "theme-id": undefined,
+    } as unknown as CodePenOptions;
+    const form = getForm(options);
+
+    expect(
+      [...form.querySelectorAll<HTMLInputElement>('input[type="hidden"]')].map(
+        (input) => input.name,
+      ),
+    ).toStrictEqual(["slug-hash"]);
   });
 });

@@ -86,16 +86,22 @@ export const getForm = (options: CodePenConfig): HTMLFormElement => {
     target: options.name ?? "",
   });
 
-  for (const key in options) {
-    if (key !== "prefill") {
-      form.append(
-        createElement("input", {
-          type: "hidden",
-          name: key,
-          value: String(options[key]),
-        }),
-      );
-    }
+  for (const key of Object.keys(options)) {
+    // `prefill` is sent as the JSON `data` field and `name` is internal
+    if (key === "prefill" || key === "name") continue;
+
+    const value = options[key];
+
+    if (typeof value !== "string" && typeof value !== "number" && typeof value !== "boolean")
+      continue;
+
+    form.append(
+      createElement("input", {
+        type: "hidden",
+        name: key,
+        value: String(value),
+      }),
+    );
   }
 
   return form;
@@ -185,6 +191,8 @@ const generateFormWrapper = (options: CodePenDomOptions, container: HTMLElement)
         form = getForm(options);
         container.append(form);
         form.submit();
+        // the pen opens in a new window, so the hidden form is not needed anymore
+        form.remove();
       }
     } else {
       window.open(getPostLink(options), "_blank");
