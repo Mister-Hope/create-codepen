@@ -1,3 +1,19 @@
+## [2.0.5](https://github.com/Mister-Hope/create-codepen/compare/v2.0.4...v2.0.5) (2026-10-31)
+
+### Bug Fixes
+
+- accept boolean true for open and preview options ([#552](https://github.com/Mister-Hope/create-codepen/issues/552)) ([528a67a](https://github.com/Mister-Hope/create-codepen/commit/528a67a87e012a3549318f0e0025c4575eabf293))
+- add missing MIT license file ([#544](https://github.com/Mister-Hope/create-codepen/issues/544)) ([b410a49](https://github.com/Mister-Hope/create-codepen/commit/b410a49f5e74923577215b32ae2404429e2da1ea))
+- clean up iframe accessibility attributes ([#555](https://github.com/Mister-Hope/create-codepen/issues/555)) ([8c3e9a5](https://github.com/Mister-Hope/create-codepen/commit/8c3e9a5290c6c48e0d292a7e8f7c920d2fcc6123))
+- encode URL path segments and normalize empty user ([#545](https://github.com/Mister-Hope/create-codepen/issues/545)) ([3398a89](https://github.com/Mister-Hope/create-codepen/commit/3398a896f79a7216ff1671b205e8ac911de968ec))
+- guard document containers and repair the demo selector ([#557](https://github.com/Mister-Hope/create-codepen/issues/557)) ([4f7a1a8](https://github.com/Mister-Hope/create-codepen/commit/4f7a1a820def3e4e21457e3ee942452c46b12a5c))
+- ignore unknown data-lang values in prefill payload ([#547](https://github.com/Mister-Hope/create-codepen/issues/547)) ([dde2229](https://github.com/Mister-Hope/create-codepen/commit/dde2229f5a3102be4c8b08d657aed3b9872a06bb))
+- keep iframe ids unique for repeated embeddings ([#550](https://github.com/Mister-Hope/create-codepen/issues/550)) ([a929b43](https://github.com/Mister-Hope/create-codepen/commit/a929b43aecd309a30ffda155e45e82720a12901e))
+- keep internal options out of the prefill form ([#551](https://github.com/Mister-Hope/create-codepen/issues/551)) ([c6fc547](https://github.com/Mister-Hope/create-codepen/commit/c6fc5471ddd3085184e5173879cdd901e30c4161))
+- make repeated renders replace the existing wrapper ([#548](https://github.com/Mister-Hope/create-codepen/issues/548)) ([f44392f](https://github.com/Mister-Hope/create-codepen/commit/f44392f9a041f4ce8c81d0f1477a7862a631807d))
+- prefer the pen link matching the slug hash when reading the author ([#556](https://github.com/Mister-Hope/create-codepen/issues/556)) ([34e93a2](https://github.com/Mister-Hope/create-codepen/commit/34e93a2f3be7d8c384dabe7a7def8fc9192c5cb6))
+- skip nullish and non-primitive query options ([#546](https://github.com/Mister-Hope/create-codepen/issues/546)) ([fe7e5bf](https://github.com/Mister-Hope/create-codepen/commit/fe7e5bf149236ef092b1036430f48c1a9fa630c1))
+
 ## [2.0.4](https://github.com/Mister-Hope/create-codepen/compare/v2.0.3...v2.0.4) (2026-08-06)
 
 ### Bug Fixes
