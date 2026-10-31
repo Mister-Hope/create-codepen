@@ -105,25 +105,31 @@ const usedIframeIds = new Set<string>();
 
 export const getIframe = (options: CodePenConfig): HTMLIFrameElement => {
   const { height = 300, class: className = "", name = "CodePen Embed" } = options;
+  const { "slug-hash": slugHash, "pen-title": penTitle } = options;
+
+  let title = penTitle?.trim() ?? "";
+
+  if (title === "") {
+    title = "CodePen Embed";
+
+    if (slugHash) title = `CodePen embed: ${slugHash}`;
+  }
+
   const attribute: Record<string, string | number> = {
-    class: `cp_embed_iframe ${className}`,
+    class: `cp_embed_iframe ${className}`.trim(),
     src: getPostLink(options),
     allowfullscreen: "",
-    allowpaymentrequest: "",
-    allowTransparency: "",
-    frameborder: 0,
     width: "100%",
     height,
     name,
-    scrolling: "no",
     style: "width: 100%; overflow: hidden; display: block;",
-    title: options["pen-title"] ?? "CodePen Embed",
+    title,
   };
 
   if (!("prefill" in options)) attribute.loading = "lazy";
 
-  if (options["slug-hash"]) {
-    const baseId = `code-pen-embed-${options["slug-hash"].replace("/", "_")}`;
+  if (slugHash) {
+    const baseId = `code-pen-embed-${slugHash.replace("/", "_")}`;
 
     // avoid duplicate ids when the same pen is embedded more than once, even
     // when the container is not attached to the document yet
