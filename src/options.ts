@@ -51,7 +51,7 @@ export interface CodePenDomOptions extends CodePenStyleOptions, Record<string, u
 
   animations?: "run" | "stop-after-5";
 
-  preview?: "true" | "false";
+  preview?: boolean | "true" | "false";
 
   /** @default 1 */
   zoom?: 1 | 0.5 | 0.25;
@@ -61,7 +61,7 @@ export interface CodePenDomOptions extends CodePenStyleOptions, Record<string, u
   "pen-title"?: string;
 
   /** @default "false" */
-  open?: "true" | "false";
+  open?: boolean | "true" | "false";
 }
 
 export interface CodePenPrefillOptions {
@@ -86,7 +86,7 @@ export interface CodePenOptions extends CodePenDomOptions {
   prefill?: CodePenPrefillOptions;
 
   /** @default "false" */
-  editable?: "true" | "false";
+  editable?: boolean | "true" | "false";
 }
 
 const getUserFromDom = (result: CodePenDomOptions, container: HTMLElement): string => {

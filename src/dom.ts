@@ -2,7 +2,7 @@ import type { CodePenDomOptions, CodePenOptions } from "./options.js";
 import { getOptionsFromDom } from "./options.js";
 import { getPostLink } from "./postlink.js";
 import { getType } from "./types.js";
-import { createElement } from "./utils.js";
+import { createElement, isTrue } from "./utils.js";
 
 interface CodePenConfig extends CodePenOptions {
   data?: string;
@@ -174,7 +174,7 @@ const generateFormWrapper = (options: CodePenDomOptions, container: HTMLElement)
   const docFragment = document.createDocumentFragment();
   let form: HTMLFormElement | null = null;
 
-  if (options.open === "true") {
+  if (isTrue(options.open)) {
     if ("prefill" in options) {
       const data = getDataFromDOM(container);
 

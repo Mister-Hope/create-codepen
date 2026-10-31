@@ -1,4 +1,5 @@
 import type { CodePenDomOptions } from "./options.js";
+import { isTrue } from "./utils.js";
 
 const HOST = "https://codepen.io";
 
@@ -19,7 +20,7 @@ const encodeOptions = (options: CodePenDomOptions): string => {
 const encodePathSegment = (value: string): string => encodeURIComponent(value);
 
 export const getPostLink = (options: CodePenDomOptions): string => {
-  const path = options.preview === "true" ? "embed/preview" : "embed";
+  const path = isTrue(options.preview) ? "embed/preview" : "embed";
 
   if ("prefill" in options) return [HOST, path, "prefill"].join("/");
 

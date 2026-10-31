@@ -1,3 +1,5 @@
+export const isTrue = (value: unknown): boolean => value === true || value === "true";
+
 export const createElement = <Key extends keyof HTMLElementTagNameMap>(
   tagName: Key,
   attributes: Record<string, string | number>,
