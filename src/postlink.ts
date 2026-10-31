@@ -2,18 +2,25 @@ import type { CodePenDomOptions } from "./options.js";
 
 const HOST = "https://codepen.io";
 
+const INTERNAL_OPTION_KEYS = new Set(["prefill", "open", "name", "data"]);
+
 const encodeOptions = (options: CodePenDomOptions): string => {
-  let result = "";
+  const query: string[] = [];
 
-  for (const key in options) {
-    if (key !== "prefill" && key !== "open" && key !== "name") {
-      if (result !== "") result += "&";
+  for (const key of Object.keys(options)) {
+    if (INTERNAL_OPTION_KEYS.has(key)) continue;
 
-      result += `${key}=${encodeURIComponent(options[key] as string | number | boolean)}`;
-    }
+    const value = options[key];
+
+    // only primitive values can be serialized meaningfully; skip undefined,
+    // null, objects and arrays instead of sending "undefined"/"[object Object]"
+    if (typeof value !== "string" && typeof value !== "number" && typeof value !== "boolean")
+      continue;
+
+    query.push(`${key}=${encodeURIComponent(value)}`);
   }
 
-  return result;
+  return query.join("&");
 };
 
 const encodePathSegment = (value: string): string => encodeURIComponent(value);
