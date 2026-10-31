@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 
+import type { CodePenDomOptions } from "../src/options.js";
 import { getPostLink } from "../src/postlink.js";
 
 describe(getPostLink, () => {
@@ -62,6 +63,31 @@ describe(getPostLink, () => {
     );
     expect(getPostLink({ "slug-hash": "abc", user: "   " })).toMatch(
       /^https:\/\/codepen\.io\/anon\/embed\/abc\?/u,
+    );
+  });
+
+  it("should skip nullish and non-primitive options", () => {
+    const options = {
+      "slug-hash": "abc",
+      "theme-id": undefined,
+      height: null,
+      extra: { foo: "bar" },
+    } as unknown as CodePenDomOptions;
+
+    expect(getPostLink(options)).toBe("https://codepen.io/anon/embed/abc?slug-hash=abc");
+  });
+
+  it("should not serialize inherited options", () => {
+    const options = Object.create({ height: 100 }) as CodePenDomOptions;
+
+    options["slug-hash"] = "abc";
+
+    expect(getPostLink(options)).toBe("https://codepen.io/anon/embed/abc?slug-hash=abc");
+  });
+
+  it("should not serialize internal option keys", () => {
+    expect(getPostLink({ "slug-hash": "abc", data: "{}", name: "_blank", open: "true" })).toBe(
+      "https://codepen.io/anon/embed/abc?slug-hash=abc",
     );
   });
 });
