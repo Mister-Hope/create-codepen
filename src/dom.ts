@@ -140,11 +140,17 @@ export const getIframe = (options: CodePenConfig): HTMLIFrameElement => {
   if (!("prefill" in options)) attribute.loading = "lazy";
 
   if (slugHash) {
-    const baseId = `code-pen-embed-${slugHash.replace("/", "_")}`;
+    const baseId = `code-pen-embed-${slugHash.replaceAll("/", "_")}`;
 
     // avoid duplicate ids when the same pen is embedded more than once, even
     // when the container is not attached to the document yet
-    const id = usedIframeIds.has(baseId) ? `${baseId}-${name}` : baseId;
+    let id = baseId;
+    let suffix = 1;
+
+    while (usedIframeIds.has(id)) {
+      id = `${baseId}-${suffix}`;
+      suffix += 1;
+    }
 
     usedIframeIds.add(id);
     attribute.id = id;
