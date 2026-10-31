@@ -182,4 +182,22 @@ describe("renderCodePen function", () => {
     expect(iframes).toHaveLength(1);
     expect(iframes?.[0]?.src).toContain("https://codepen.io/anon/embed/def");
   });
+
+  it("should submit the prefill form to the generated iframe", () => {
+    const container = document.createElement("div");
+    const submitSpy = vi.spyOn(HTMLFormElement.prototype, "submit").mockImplementation(() => {});
+
+    renderCodePen({ prefill: { title: "Targeted" } }, container);
+
+    const form = container.querySelector("form")!;
+    const iframe = container.querySelector("iframe")!;
+
+    expect(form.method).toBe("post");
+    expect(form.action).toBe("https://codepen.io/embed/prefill");
+    expect(form.target).not.toBe("");
+    expect(form.target).not.toBe("_blank");
+    expect(iframe.name).toBe(form.target);
+
+    submitSpy.mockRestore();
+  });
 });
