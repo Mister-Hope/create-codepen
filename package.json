@@ -23,6 +23,7 @@
     "dist"
   ],
   "type": "module",
+  "sideEffects": false,
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
@@ -31,13 +32,13 @@
   },
   "scripts": {
     "build": "tsdown",
-    "changelog": " conventional-changelog -p conventionalcommits",
+    "changelog": "conventional-changelog -p conventionalcommits",
     "clean": "rimraf dist",
     "dev": "vite",
     "lint": "oxlint --fix && oxfmt",
     "lint:check": "oxlint && oxfmt --check",
     "prepare": "husky",
-    "prepublishOnly": "pnpm run build",
+    "prepublishOnly": "pnpm run lint:check && pnpm run test && pnpm run build",
     "test": "vitest run --coverage"
   },
   "devDependencies": {
