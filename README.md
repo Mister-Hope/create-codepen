@@ -1,12 +1,12 @@
 # create-codepen
 
-A browser library for embedding CodePen content via the CodePen embed API. Zero Node.js dependencies, ESM-only, targets modern browsers (ES2020+).
+A browser library for embedding CodePen content via the CodePen embed API. Zero runtime dependencies, ESM-only, written with ES2023 syntax and built for baseline-widely-available browsers (Chrome 111+, Edge 111+, Firefox 114+, Safari 16.4+, iOS Safari 16.4+).
 
 ## Installation
 
 ```html
 <script type="module">
-  import { renderCodePen } from "https://unpkg.com/create-codepen";
+  import { renderCodePen } from "https://unpkg.com/create-codepen@2";
 </script>
 ```
 
@@ -15,6 +15,8 @@ A browser library for embedding CodePen content via the CodePen embed API. Zero 
 ### renderCodePen(options, selector?)
 
 Renders a CodePen iframe. If `selector` is provided, embeds inside that element; otherwise opens in a new window.
+
+A selector string that matches no element throws a `TypeError`. The matched host is replaced by `.code-pen-embed-wrapper` after rendering, so query the wrapper instead of the original element.
 
 ```ts
 renderCodePen(options: CodePenOptions, selector?: string | HTMLElement): void
@@ -33,7 +35,7 @@ renderCodePen(options: CodePenOptions, selector?: string | HTMLElement): void
 <div id="pen-container"></div>
 
 <script type="module">
-  import { renderCodePen } from "https://unpkg.com/create-codepen";
+  import { renderCodePen } from "https://unpkg.com/create-codepen@2";
 
   renderCodePen(
     {
@@ -74,10 +76,35 @@ loadCodePens(selector?: string, options?: CodePenDomOptions): void
 </p>
 
 <script type="module">
-  import { loadCodePens } from "https://unpkg.com/create-codepen";
+  import { loadCodePens } from "https://unpkg.com/create-codepen@2";
   loadCodePens();
 </script>
 ```
+
+#### Prefill embeds from the DOM
+
+`loadCodePens()` also supports prefill embeds: put `data-prefill` on the container and the code in child elements with `data-lang`. The optional `data-prefill` JSON value only carries metadata.
+
+```html
+<div
+  class="codepen"
+  data-prefill='{"title":"My Pen","description":"A demo","tags":["demo"]}'
+  data-height="400"
+  data-default-tab="js,result"
+>
+  <pre data-lang="html">&lt;div id="root"&gt;&lt;/div&gt;</pre>
+  <pre data-lang="scss">$color: #333; body { color: $color; }</pre>
+  <pre data-lang="babel">console.log("hello");</pre>
+</div>
+```
+
+Supported `data-prefill` JSON keys: `title`, `description`, `tags`, `html_classes`, `head`, `stylesheets`, `scripts`. Supported `data-lang` values:
+
+- HTML: `html`, `xml`, `haml`, `markdown`, `slim`, `pug`
+- CSS: `css`, `less`, `scss`, `sass`, `stylus`, `postcss`
+- JS: `js`, `javascript`, `coffeescript`, `livescript`, `typescript`, `babel` (`vue` / `flutter` are sent as `js`)
+
+`data-lang-version` adds the matching `<type>_version` option, and `data-options-autoprefixer` adds `css_prefix: "autoprefixer"`. Unknown `data-lang` values are ignored.
 
 ---
 
@@ -103,7 +130,7 @@ openCodePens(selector?: string): void
 </p>
 
 <script type="module">
-  import { openCodePens } from "https://unpkg.com/create-codepen";
+  import { openCodePens } from "https://unpkg.com/create-codepen@2";
   openCodePens(".codepen-open");
 </script>
 ```
@@ -129,6 +156,10 @@ Used by `renderCodePen()` and `loadCodePens()`.
 | `animations`  | `"run" \| "stop-after-5"` | —          | Animation behavior                                                                                                                                                |
 | `zoom`        | `1 \| 0.5 \| 0.25`        | `1`        | Zoom level                                                                                                                                                        |
 | `token`       | `string`                  | —          | Pen token for private pens                                                                                                                                        |
+
+Any additional `data-*` attribute on a container becomes an option and is serialized into the embed URL (or prefill form). Only the documented names are meaningful; typos are forwarded verbatim.
+
+Boolean-style options (`open`, `preview`, `editable`) are read as strings, matching `data-*` attribute values: use `"true"` / `"false"`.
 
 ---
 
@@ -193,7 +224,7 @@ renderCodePen({
 <div id="embed"></div>
 
 <script type="module">
-  import { renderCodePen } from "https://unpkg.com/create-codepen";
+  import { renderCodePen } from "https://unpkg.com/create-codepen@2";
 
   renderCodePen(
     {
@@ -216,7 +247,7 @@ renderCodePen({
 <div id="prefill"></div>
 
 <script type="module">
-  import { renderCodePen } from "https://unpkg.com/create-codepen";
+  import { renderCodePen } from "https://unpkg.com/create-codepen@2";
 
   renderCodePen(
     {
@@ -242,7 +273,7 @@ renderCodePen({
 <button id="open-btn">Open CodePen</button>
 
 <script type="module">
-  import { renderCodePen } from "https://unpkg.com/create-codepen";
+  import { renderCodePen } from "https://unpkg.com/create-codepen@2";
 
   document.querySelector("#open-btn").addEventListener("click", () => {
     renderCodePen({
