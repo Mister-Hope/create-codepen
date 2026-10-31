@@ -166,6 +166,13 @@ export const appendFragment = (
   }
 
   if (container.parentNode) {
+    // replacing <body> or <html> would remove the whole page
+    if (container === document.body || container === document.documentElement) {
+      container.append(docFragment);
+
+      return container;
+    }
+
     const div = document.createElement("div");
 
     div.className = "code-pen-embed-wrapper";

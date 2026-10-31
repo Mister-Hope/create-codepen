@@ -39,7 +39,15 @@ export const renderCodePen = (options: CodePenOptions, selector?: string | HTMLE
     docFragment.append(getIframe(config));
     appendFragment(container, docFragment);
   } else if (form) {
-    document.body.append(docFragment);
+    const body: HTMLElement | null = document.body;
+
+    if (body == null) {
+      throw new TypeError(
+        "document.body is not available yet; render the prefill embed after the body exists",
+      );
+    }
+
+    body.append(docFragment);
   } else {
     window.open(getPostLink(config), "_blank");
   }
