@@ -16,16 +16,23 @@ const encodeOptions = (options: CodePenDomOptions): string => {
   return result;
 };
 
+const encodePathSegment = (value: string): string => encodeURIComponent(value);
+
 export const getPostLink = (options: CodePenDomOptions): string => {
   const path = options.preview === "true" ? "embed/preview" : "embed";
 
   if ("prefill" in options) return [HOST, path, "prefill"].join("/");
 
-  let slugHash = options["slug-hash"];
+  const { "slug-hash": slugHash, token } = options;
 
   if (!slugHash) throw new Error("slug-hash is required");
 
-  if (options.token) slugHash += `/${options.token}`;
+  let user = options.user?.trim() ?? "anon";
 
-  return [HOST, options.user ?? "anon", path, `${slugHash}?${encodeOptions(options)}`].join("/");
+  if (user === "") user = "anon";
+  const penPath = token
+    ? `${encodePathSegment(slugHash)}/${encodePathSegment(token)}`
+    : encodePathSegment(slugHash);
+
+  return [HOST, encodePathSegment(user), path, `${penPath}?${encodeOptions(options)}`].join("/");
 };
