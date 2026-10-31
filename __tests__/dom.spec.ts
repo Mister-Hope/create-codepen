@@ -76,11 +76,35 @@ describe("getIframe function", () => {
     expect(iframe.title).toBe("My Pen");
   });
 
-  it("should fall back to a friendly title instead of the technical name", () => {
+  it("should derive a descriptive title instead of using the technical name", () => {
     const options: CodePenOptions = { "slug-hash": "abc", name: "code-pen-api-1" };
     const iframe = getIframe(options);
 
-    expect(iframe.title).toBe("CodePen Embed");
+    expect(iframe.title).toBe("CodePen embed: abc");
+  });
+
+  it("should fall back to a friendly title when pen-title is blank", () => {
+    const options: CodePenOptions = { "slug-hash": "abc", "pen-title": "   " };
+    const iframe = getIframe(options);
+
+    expect(iframe.title).toBe("CodePen embed: abc");
+  });
+
+  it("should not leave a trailing space in the iframe class", () => {
+    const iframe = getIframe({ "slug-hash": "abc" });
+    const customIframe = getIframe({ "slug-hash": "def", class: "my-class" });
+
+    expect(iframe.getAttribute("class")).toBe("cp_embed_iframe");
+    expect(customIframe.getAttribute("class")).toBe("cp_embed_iframe my-class");
+  });
+
+  it("should not set obsolete iframe attributes", () => {
+    const iframe = getIframe({ "slug-hash": "abc" });
+
+    expect(iframe.getAttribute("allowpaymentrequest")).toBeNull();
+    expect(iframe.getAttribute("allowtransparency")).toBeNull();
+    expect(iframe.getAttribute("frameborder")).toBeNull();
+    expect(iframe.getAttribute("scrolling")).toBeNull();
   });
 });
 
