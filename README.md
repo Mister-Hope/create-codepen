@@ -253,3 +253,9 @@ renderCodePen({
   });
 </script>
 ```
+
+---
+
+## License
+
+[MIT](./LICENSE)
