@@ -90,7 +90,7 @@ export interface CodePenOptions extends CodePenDomOptions {
 }
 
 const getUserFromDom = (result: CodePenDomOptions, container: HTMLElement): string => {
-  if (typeof result.user === "string") return result.user;
+  if (typeof result.user === "string" && result.user.trim()) return result.user;
 
   // try to find a link in users
   for (const anchor of container.querySelectorAll("a")) {

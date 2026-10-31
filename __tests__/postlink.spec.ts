@@ -44,4 +44,24 @@ describe(getPostLink, () => {
     expect(link).toContain("theme-id=123");
     expect(link).toContain("default-tab=js%2Cresult");
   });
+
+  it("should encode user and token path segments", () => {
+    const userLink = getPostLink({ "slug-hash": "abc", user: "a b/c" });
+
+    expect(userLink).toContain("https://codepen.io/a%20b%2Fc/embed/abc?");
+    expect(userLink).not.toContain("https://codepen.io/a b/c/embed");
+
+    const tokenLink = getPostLink({ "slug-hash": "abc", token: "t/1" });
+
+    expect(tokenLink).toContain("/embed/abc/t%2F1?");
+  });
+
+  it("should fall back to anon for an empty or whitespace-only user", () => {
+    expect(getPostLink({ "slug-hash": "abc", user: "" })).toMatch(
+      /^https:\/\/codepen\.io\/anon\/embed\/abc\?/u,
+    );
+    expect(getPostLink({ "slug-hash": "abc", user: "   " })).toMatch(
+      /^https:\/\/codepen\.io\/anon\/embed\/abc\?/u,
+    );
+  });
 });

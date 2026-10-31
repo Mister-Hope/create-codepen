@@ -73,4 +73,23 @@ describe(getOptionsFromDom, () => {
     const options = getOptionsFromDom(div);
     expect(options?.user).toBe("anon");
   });
+
+  it("should fall back to anon when data-user is empty", () => {
+    const div = document.createElement("div");
+
+    div.dataset.slugHash = "abc";
+    div.dataset.user = "";
+
+    expect(getOptionsFromDom(div)?.user).toBe("anon");
+  });
+
+  it("should fall back to the pen link when data-user is blank", () => {
+    const div = document.createElement("div");
+
+    div.dataset.slugHash = "abc";
+    div.dataset.user = "   ";
+    div.innerHTML = '<a href="https://codepen.io/real-user/pen/abc"></a>';
+
+    expect(getOptionsFromDom(div)?.user).toBe("real-user");
+  });
 });
